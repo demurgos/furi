@@ -27,7 +27,7 @@ const lib: buildTools.LibTarget = {
   srcDir: "src/lib",
   scripts: ["**/*.ts"],
   mainModule: "index",
-  outModules: buildTools.OutModules.Both,
+  outModules: buildTools.OutModules.Js,
   dist: {
     packageJsonMap: (old: buildTools.PackageJson): buildTools.PackageJson => {
       const version: string = options.devDist !== undefined ? `${old.version}-build.${options.devDist}` : old.version;
@@ -64,7 +64,7 @@ const test: buildTools.MochaTarget = {
   name: "test",
   srcDir: "src",
   scripts: ["test/**/*.ts", "lib/**/*.ts"],
-  outModules: buildTools.OutModules.Both,
+  outModules: buildTools.OutModules.Js,
   customTypingsDir: "src/custom-typings",
   tscOptions: <any> {
     skipLibCheck: true,

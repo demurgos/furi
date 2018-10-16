@@ -4,9 +4,9 @@ notifications:
   email: false
 
 os:
-- windows
 - linux
-- osx
+#- osx
+#- windows
 
 node_js:
 - 10
