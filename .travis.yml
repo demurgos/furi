@@ -1,0 +1,20 @@
+language: node_js
+
+notifications:
+  email: false
+
+os:
+- windows
+- linux
+- osx
+
+node_js:
+- 10
+
+script:
+- npm test
+- echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+- ./tools/continuous-deployment.travis.sh
+
+after_script:
+- node node_modules/.bin/codecov
