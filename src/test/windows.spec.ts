@@ -86,7 +86,7 @@ describe("fromWindowsPath", function () {
     const title: string = item.name !== undefined ? `${item.name}: ${item.windowsPath}` : item.windowsPath;
     it(title, () => {
       const expected: string = item.furi;
-      const actual: string = fromWindowsPath(item.windowsPath);
+      const actual: string = fromWindowsPath(item.windowsPath).href;
       chai.assert.strictEqual(actual, expected);
     });
   }

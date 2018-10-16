@@ -34,7 +34,7 @@ describe("modules", () => {
     it(title, async () => {
       const {furi, sysPath} = await resolveTestItem(item.basename);
       const errMessage: string = JSON.stringify({furi, sysPath});
-      chai.assert.strictEqual(fromSysPath(sysPath), furi, `fromSysPath: ${errMessage}`);
+      chai.assert.strictEqual(fromSysPath(sysPath).href, furi, `fromSysPath: ${errMessage}`);
       chai.assert.strictEqual(toSysPath(furi), sysPath, `toSysPath: ${errMessage}`);
     });
   }

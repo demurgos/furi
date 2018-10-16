@@ -86,7 +86,7 @@ describe("fromPosixPath", function () {
     const title: string = item.name !== undefined ? `${item.name}: ${item.posixPath}` : item.posixPath;
     it(title, () => {
       const expected: string = item.furi;
-      const actual: string = fromPosixPath(item.posixPath);
+      const actual: string = fromPosixPath(item.posixPath).href;
       chai.assert.strictEqual(actual, expected);
     });
   }
