@@ -4,7 +4,6 @@
 [![GitHub repository](https://img.shields.io/badge/Github-demurgos%2Ffuri-blue.svg)](https://github.com/demurgos/furi)
 [![Build status](https://img.shields.io/travis/demurgos/furi/master.svg?maxAge=2592000)](https://travis-ci.org/demurgos/furi)
 [![Codecov](https://codecov.io/gh/demurgos/furi/branch/master/graph/badge.svg)](https://codecov.io/gh/demurgos/furi)
-[![Greenkeeper badge](https://badges.greenkeeper.io/demurgos/furi.svg)](https://greenkeeper.io/)
 
 File URI library.
 
