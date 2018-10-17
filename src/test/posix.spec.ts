@@ -19,6 +19,11 @@ const testItems: TestItem[] = [
     posixPath: "/dir/foo",
   },
   {
+    name: "trailing separator",
+    furi: "file:///dir/",
+    posixPath: "/dir/",
+  },
+  {
     name: "space",
     furi: "file:///foo%20bar",
     posixPath: "/foo bar",
@@ -54,19 +59,49 @@ const testItems: TestItem[] = [
     posixPath: "/foo;bar",
   },
   {
+    name: "percent",
+    furi: "file:///foo%25bar",
+    posixPath: "/foo%bar",
+  },
+  {
+    name: "backslash",
+    furi: "file:///foo%5Cbar",
+    posixPath: "/foo\\bar",
+  },
+  {
+    name: "backspace",
+    furi: "file:///foo%08bar",
+    posixPath: "/foo\bbar",
+  },
+  {
+    name: "tab",
+    furi: "file:///foo%09bar",
+    posixPath: "/foo\tbar",
+  },
+  {
     name: "newline",
     furi: "file:///foo%0Abar",
     posixPath: "/foo\nbar",
   },
   {
-    name: "latin1",
-    furi: "file:///f%C3%B3%C3%B3",
-    posixPath: "/fóó",
+    name: "newline",
+    furi: "file:///foo%0Dbar",
+    posixPath: "/foo\rbar",
   },
   {
-    name: "non-BMP char",
-    furi: "file:///%F0%9D%84%9E",
-    posixPath: "/𝄞",
+    name: "latin1",
+    furi: "file:///f%C3%B3%C3%B3b%C3%A0r",
+    posixPath: "/fóóbàr",
+  },
+  {
+    name: "euro sign (BMP code point)",
+    furi: "file:///%E2%82%AC",
+    posixPath: "/€",
+  },
+  {
+    name: "rocket emoji (non-BMP code point)",
+    furi: "file:///%F0%9F%9A%80",
+    posixPath: "/🚀",
   },
 ];
 

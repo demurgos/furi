@@ -19,6 +19,11 @@ const testItems: TestItem[] = [
     windowsPath: "C:\\dir\\foo",
   },
   {
+    name: "trailing separator",
+    furi: "file:///C:/dir/",
+    windowsPath: "C:\\dir\\",
+  },
+  {
     name: "space",
     furi: "file:///C:/foo%20bar",
     windowsPath: "C:\\foo bar",
@@ -54,19 +59,49 @@ const testItems: TestItem[] = [
     windowsPath: "C:\\foo;bar",
   },
   {
+    name: "percent",
+    furi: "file:///C:/foo%25bar",
+    windowsPath: "C:\\foo%bar",
+  },
+  {
+    name: "backslash",
+    furi: "file:///C:/foo/bar",
+    windowsPath: "C:\\foo\\bar",
+  },
+  {
+    name: "backspace",
+    furi: "file:///C:/foo%08bar",
+    windowsPath: "C:\\foo\bbar",
+  },
+  {
+    name: "tab",
+    furi: "file:///C:/foo%09bar",
+    windowsPath: "C:\\foo\tbar",
+  },
+  {
     name: "newline",
     furi: "file:///C:/foo%0Abar",
     windowsPath: "C:\\foo\nbar",
   },
   {
-    name: "latin1",
-    furi: "file:///C:/f%C3%B3%C3%B3",
-    windowsPath: "C:\\fóó",
+    name: "newline",
+    furi: "file:///C:/foo%0Dbar",
+    windowsPath: "C:\\foo\rbar",
   },
   {
-    name: "non-BMP char",
-    furi: "file:///C:/%F0%9D%84%9E",
-    windowsPath: "C:\\𝄞",
+    name: "latin1",
+    furi: "file:///C:/f%C3%B3%C3%B3b%C3%A0r",
+    windowsPath: "C:\\fóóbàr",
+  },
+  {
+    name: "euro sign (BMP code point)",
+    furi: "file:///C:/%E2%82%AC",
+    windowsPath: "C:\\€",
+  },
+  {
+    name: "rocket emoji (non-BMP code point)",
+    furi: "file:///C:/%F0%9F%9A%80",
+    windowsPath: "C:\\🚀",
   },
 ];
 

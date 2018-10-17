@@ -20,12 +20,14 @@ const testItems: TestItem[] = [
   {name: "colon", basename: "foo:bar"},
   {name: "semicolon", basename: "foo;bar"},
   {name: "percent", basename: "foo%bar"},
-  {name: "backspace", basename: "foo\bbar"},
-  // https://github.com/nodejs/node/issues/23696
+  // https://github.com/nodejs/node/pull/23720
+  // {name: "backslash", basename: "foo\\bar"},
   // {name: "tab", basename: "foo\tbar"},
   // {name: "new line", basename: "foo\nbar"},
-  {name: "latin1", basename: "fóó"},
-  {name: "non-BMP char", basename: "𝄞"},
+  {name: "backspace", basename: "foo\bbar"},
+  {name: "latin1", basename: "fóóbàr"},
+  {name: "euro sign (BMP code point)", basename: "€"},
+  {name: "rocket emoji (non-BMP code point)", basename: "/🚀"},
 ];
 
 describe("modules", () => {
