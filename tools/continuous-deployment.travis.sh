@@ -9,9 +9,9 @@
 # ```bash
 # EMAIL="demurgos@demurgos.net"
 # OUTPUT_KEYFILE="deploy_key"
-# ssh-keygen -t rsa -C "$EMAIL" -N "" -f "$OUTPUT_KEYFILE"
-# travis encrypt-file "$OUTPUT_KEYFILE"
-# rm "$OUTPUT_KEYFILE"
+# ssh-keygen -t rsa -C "${EMAIL}" -N "" -f "${OUTPUT_KEYFILE}"
+# travis encrypt-file "${OUTPUT_KEYFILE}"
+# rm "${OUTPUT_KEYFILE}"
 # ```
 # Upload the public key to the repository's setting, then remove the public key and commit the encrypted private key.
 # Make sure that the clear private key ($OUTPUT_KEYFILE) is not in the history (it should be removed after the
