@@ -1,5 +1,5 @@
 import chai from "chai";
-import { fromWindowsPath, toLongWindowsPath, toShortWindowsPath } from "../lib";
+import { fromWindowsPath, toWindowsLongPath, toWindowsShortPath } from "../lib";
 
 interface TestItem {
   name?: string;
@@ -159,23 +159,23 @@ const testItems: TestItem[] = [
   },
 ];
 
-describe("toShortWindowsPath", function () {
+describe("toWindowsShortPath", function () {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.furi}` : item.furi;
     it(title, () => {
       const expected: string = item.shortWindowsPath;
-      const actual: string = toShortWindowsPath(item.furi);
+      const actual: string = toWindowsShortPath(item.furi);
       chai.assert.strictEqual(actual, expected);
     });
   }
 });
 
-describe("toLongWindowsPath", function () {
+describe("toWindowsLongPath", function () {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.furi}` : item.furi;
     it(title, () => {
       const expected: string = item.longWindowsPath;
-      const actual: string = toLongWindowsPath(item.furi);
+      const actual: string = toWindowsLongPath(item.furi);
       chai.assert.strictEqual(actual, expected);
     });
   }
