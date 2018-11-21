@@ -1,16 +1,59 @@
+/**
+ * @module furi
+ */
+
 import assert from "assert";
 import isWindows from "is-windows";
 import url from "url";
 
-export function toSysPath(furi: string, useLongWindowsPath: boolean = false): string {
+/**
+ * Converts a File URI to a system-dependent path.
+ *
+ * Use `toPosixPath`, `toWindowsShortPath` or `toWindowsLongPath` if you
+ * want system-independent results.
+ *
+ * Example:
+ * ```js
+ * // On a Windows system:
+ * toSysPath("file:///C:/dir/foo");
+ * // -> "C:\\dir\\foo";
+ * toSysPath("file:///C:/dir/foo", true);
+ * // -> "\\\\?\\C:\\dir\\foo";
+ *
+ * // On a Posix system:
+ * toSysPath("file:///dir/foo");
+ * // -> "/dir/foo";
+ * ```
+ *
+ * @param furi File URI to convert.
+ * @param windowsLongPath Use long paths on Windows. (default: `false`)
+ * @return System-dependent path.
+ */
+export function toSysPath(furi: string, windowsLongPath: boolean = false): string {
   if (isWindows()) {
-    return useLongWindowsPath ? toLongWindowsPath(furi) : toShortWindowsPath(furi);
+    return windowsLongPath ? toWindowsLongPath(furi) : toWindowsShortPath(furi);
   } else {
     return toPosixPath(furi);
   }
 }
 
-export function toShortWindowsPath(furi: string): string {
+/**
+ * Converts a File URI to a Windows short path.
+ *
+ * The result is either a short device path or a short UNC server path.
+ *
+ * Example:
+ * ```js
+ * toSysPath("file:///C:/dir/foo");
+ * // -> "C:\\dir\\foo";
+ * toSysPath("file://server/Users/foo");
+ * // -> "\\\\server\\Users\\foo";
+ * ```
+ *
+ * @param furi File URI to convert.
+ * @return Windows short path.
+ */
+export function toWindowsShortPath(furi: string): string {
   const urlObj: url.URL = new url.URL(furi);
   if (urlObj.host === "") {
     // Local drive path
@@ -26,7 +69,23 @@ export function toShortWindowsPath(furi: string): string {
   }
 }
 
-export function toLongWindowsPath(furi: string): string {
+/**
+ * Converts a File URI to a Windows long path.
+ *
+ * The result is either a long device path or a long UNC server path.
+ *
+ * Example:
+ * ```js
+ * toWindowsPath("file:///C:/dir/foo");
+ * // -> "\\\\?\\C:\\dir\\foo";
+ * toWindowsPath("file://server/Users/foo");
+ * // -> "\\\\?\\unc\\server\\Users\\foo";
+ * ```
+ *
+ * @param furi File URI to convert.
+ * @return Windows long path.
+ */
+export function toWindowsLongPath(furi: string): string {
   const urlObj: url.URL = new url.URL(furi);
   if (urlObj.host === "") {
     // Local drive path
@@ -43,6 +102,20 @@ export function toLongWindowsPath(furi: string): string {
   }
 }
 
+/**
+ * Converts a File URI to a Posix path.
+ *
+ * Requires the host to be either an empty string or `"localhost"`.
+ *
+ * Example:
+ * ```js
+ * toPosixPath("file:///dir/foo");
+ * // -> "/dir/foo";
+ * ```
+ *
+ * @param furi File URI to convert.
+ * @return Posix path.
+ */
 export function toPosixPath(furi: string): string {
   const urlObj: url.URL = new url.URL(furi);
   if (urlObj.host !== "" && urlObj.host !== "localhost") {
@@ -52,21 +125,55 @@ export function toPosixPath(furi: string): string {
   return pathname.split("/").map(decodeURIComponent).join("/");
 }
 
-export function fromSysPath(path: string): url.URL {
-  return isWindows() ? fromWindowsPath(path) : fromPosixPath(path);
+/**
+ * Converts an absolute system-dependent path to a frozen URL object.
+ *
+ * Use `fromPosixPath` or `fromWindowsPath` if you want system-independent
+ * results.
+ *
+ * Example:
+ * ```js
+ * // On a Windows system:
+ * fromSysPath("C:\\dir\\foo");
+ * // -> new URL("file:///C:/dir/foo");
+ *
+ * // On a Posix system:
+ * fromSysPath("/dir/foo");
+ * // -> new URL("file:///dir/foo");
+ * ```
+ *
+ * @param absPath Absolute system-dependent path to convert
+ * @return Frozen `file://` URL object.
+ */
+export function fromSysPath(absPath: string): url.URL {
+  return isWindows() ? fromWindowsPath(absPath) : fromPosixPath(absPath);
 }
 
 const WINDOWS_PREFIX_REGEX: RegExp = /^[\\/]{2,}([^\\/]+)(?:$|[\\/]+)/;
 const WINDOWS_UNC_REGEX: RegExp = /^unc(?:$|[\\/]+)([^\\/]+)(?:$|[\\/]+)/i;
 
-export function fromWindowsPath(path: string): url.URL {
-  const prefixMatch: RegExpExecArray | null = WINDOWS_PREFIX_REGEX.exec(path);
+/**
+ * Converts an absolute Windows path to a frozen URL object.
+ *
+ * Example:
+ * ```js
+ * fromWindowsPath("C:\\dir\\foo");
+ * // -> new URL(file:///C:/dir/foo");
+ * fromWindowsPath("\\\\?\\unc\\server\\Users\\foo");
+ * // -> new URL("file://server/Users/foo");
+ * ```
+ *
+ * @param absPath Absolute Windows path to convert
+ * @return Frozen `file://` URL object.
+ */
+export function fromWindowsPath(absPath: string): url.URL {
+  const prefixMatch: RegExpExecArray | null = WINDOWS_PREFIX_REGEX.exec(absPath);
   if (prefixMatch === null) {
     // Short device path
-    return formatFileUrl(`/${toForwardSlashes(path)}`);
+    return formatFileUrl(`/${toForwardSlashes(absPath)}`);
   }
   const prefix: string = prefixMatch[1];
-  const tail: string = path.substring(prefixMatch[0].length);
+  const tail: string = absPath.substring(prefixMatch[0].length);
   if (prefix !== "?") {
     // Short server path
     const result: url.URL = new url.URL("file:///");
@@ -92,18 +199,49 @@ export function fromWindowsPath(path: string): url.URL {
   }
 }
 
-export function fromPosixPath(path: string): url.URL {
-  return formatFileUrl(path);
+/**
+ * Converts an absolute Posix path to a frozen URL object.
+ *
+ * Example:
+ * ```js
+ * fromPosixPath("/dir/foo");
+ * // -> new URL(file:///dir/foo");
+ * ```
+ *
+ * @param absPath Absolute Posix path to convert
+ * @return Frozen `file://` URL object.
+ */
+export function fromPosixPath(absPath: string): url.URL {
+  return formatFileUrl(absPath);
 }
 
-function toForwardSlashes(path: string): string {
-  return path.replace(/\\/g, "/");
+/**
+ * Replaces all the backward slashes by forward slashes.
+ *
+ * @param str Input string.
+ * @internal
+ */
+function toForwardSlashes(str: string): string {
+  return str.replace(/\\/g, "/");
 }
 
-function toBackwardSlashes(path: string): string {
-  return path.replace(/\//g, "\\");
+/**
+ * Replaces all the forward slashes by backward slashes.
+ *
+ * @param str Input string.
+ * @internal
+ */
+function toBackwardSlashes(str: string): string {
+  return str.replace(/\//g, "\\");
 }
 
+/**
+ * Creates a frozen `file://` URL using the supplied `pathname`.
+ *
+ * @param pathname Pathname for the URL object.
+ * @return Frozen `file://` URL object.
+ * @internal
+ */
 function formatFileUrl(pathname: string): url.URL {
   const result: url.URL = new url.URL("file:///");
   result.pathname = encodeURI(pathname);
@@ -111,6 +249,12 @@ function formatFileUrl(pathname: string): url.URL {
   return result;
 }
 
+/**
+ * Freezes a URL object.
+ *
+ * @param writableUrl URL object to freeze.
+ * @internal
+ */
 function freezeUrl(writableUrl: url.URL): void {
   Object.freeze(writableUrl.searchParams);
   Object.freeze(writableUrl);

@@ -1,3 +1,9 @@
+# 1.0.0 (2018-11-21)
+
+- **[Breaking change]** Rename `toShortWindowsPath` to `toWindowsShortPath`.
+- **[Breaking change]** Rename `toLongWindowsPath` to `toWindowsLongPath`.
+- **[Documentation]** Add documentation.
+
 # 0.2.0 (2018-11-21)
 
 - **[Breaking change]** Rename `toWindowsPath` to `toShortWindowsPath`.

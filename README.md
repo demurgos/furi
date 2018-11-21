@@ -7,11 +7,21 @@
 
 File URI manipulation library.
 
+This library is intended as a toolbox to handle `file://` URIs. It currently
+focuses on conversion between file URIs and system dependent paths.
+
+The conversion supports Windows UNC paths, Windows long paths, trailing
+separators, special characters and non-ASCII characters.
+
 ## Installation
 
 ```shell
 npm install --save furi
 ```
+
+## API documentation
+
+See [documentation](https://demurgos.github.io/furi/).
 
 ## References
 
