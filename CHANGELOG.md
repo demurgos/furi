@@ -1,3 +1,10 @@
+# 0.2.0 (2018-11-21)
+
+- **[Breaking change]** Rename `toWindowsPath` to `toShortWindowsPath`.
+- **[Feature]** Add to `toLongWindowsPath`.
+- **[Fix]** Add support for Windows UNC paths.
+- **[Fix]** Add support for Windows long paths.
+
 # 0.1.0 (2018-10-16)
 
 - **[Feature]** First release

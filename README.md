@@ -5,7 +5,7 @@
 [![Build status](https://img.shields.io/travis/demurgos/furi/master.svg?maxAge=2592000)](https://travis-ci.org/demurgos/furi)
 [![Codecov](https://codecov.io/gh/demurgos/furi/branch/master/graph/badge.svg)](https://codecov.io/gh/demurgos/furi)
 
-File URI library.
+File URI manipulation library.
 
 ## Installation
 
@@ -18,6 +18,8 @@ npm install --save furi
 - https://tools.ietf.org/html/rfc3986#section-3.3
 - https://url.spec.whatwg.org/
 - https://github.com/nodejs/node/blob/deaddd212c499c7ff88d20034753b5f3f00d5153/lib/internal/url.js#L1414
+- https://github.com/nodejs/node/blob/master/test/parallel/test-url-pathtofileurl.js
+- https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file
 
 ## License
 

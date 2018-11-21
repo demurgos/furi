@@ -1,7 +1,7 @@
 {
   "name": "furi",
-  "version": "0.1.0",
-  "description": "File URI library",
+  "version": "0.2.0",
+  "description": "File URI manipulation library",
   "private": true,
   "main": "dist/lib/index",
   "types": "dist/lib/index.d.ts",

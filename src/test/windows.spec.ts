@@ -1,116 +1,181 @@
 import chai from "chai";
-import { fromWindowsPath, toWindowsPath } from "../lib";
+import { fromWindowsPath, toLongWindowsPath, toShortWindowsPath } from "../lib";
 
 interface TestItem {
   name?: string;
   furi: string;
-  windowsPath: string;
+  shortWindowsPath: string;
+  longWindowsPath: string;
+  otherPaths: string[];
 }
 
 const testItems: TestItem[] = [
   {
     name: "simple",
     furi: "file:///C:/foo",
-    windowsPath: "C:\\foo",
+    shortWindowsPath: "C:\\foo",
+    longWindowsPath: "\\\\?\\C:\\foo",
+    otherPaths: [],
   },
   {
     name: "dir",
     furi: "file:///C:/dir/foo",
-    windowsPath: "C:\\dir\\foo",
+    shortWindowsPath: "C:\\dir\\foo",
+    longWindowsPath: "\\\\?\\C:\\dir\\foo",
+    otherPaths: [],
   },
   {
     name: "trailing separator",
     furi: "file:///C:/dir/",
-    windowsPath: "C:\\dir\\",
+    shortWindowsPath: "C:\\dir\\",
+    longWindowsPath: "\\\\?\\C:\\dir\\",
+    otherPaths: [],
   },
   {
     name: "space",
     furi: "file:///C:/foo%20bar",
-    windowsPath: "C:\\foo bar",
+    shortWindowsPath: "C:\\foo bar",
+    longWindowsPath: "\\\\?\\C:\\foo bar",
+    otherPaths: [],
   },
   {
     name: "question mark",
     furi: "file:///C:/foo%3Fbar",
-    windowsPath: "C:\\foo?bar",
+    shortWindowsPath: "C:\\foo?bar",
+    longWindowsPath: "\\\\?\\C:\\foo?bar",
+    otherPaths: [],
   },
   {
     name: "number sign",
     furi: "file:///C:/foo%23bar",
-    windowsPath: "C:\\foo#bar",
+    shortWindowsPath: "C:\\foo#bar",
+    longWindowsPath: "\\\\?\\C:\\foo#bar",
+    otherPaths: [],
   },
   {
     name: "ampersand",
     furi: "file:///C:/foo&bar",
-    windowsPath: "C:\\foo&bar",
+    shortWindowsPath: "C:\\foo&bar",
+    longWindowsPath: "\\\\?\\C:\\foo&bar",
+    otherPaths: [],
   },
   {
     name: "equals",
     furi: "file:///C:/foo=bar",
-    windowsPath: "C:\\foo=bar",
+    shortWindowsPath: "C:\\foo=bar",
+    longWindowsPath: "\\\\?\\C:\\foo=bar",
+    otherPaths: [],
   },
   {
     name: "colon",
     furi: "file:///C:/foo:bar",
-    windowsPath: "C:\\foo:bar",
+    shortWindowsPath: "C:\\foo:bar",
+    longWindowsPath: "\\\\?\\C:\\foo:bar",
+    otherPaths: [],
   },
   {
     name: "semicolon",
     furi: "file:///C:/foo;bar",
-    windowsPath: "C:\\foo;bar",
+    shortWindowsPath: "C:\\foo;bar",
+    longWindowsPath: "\\\\?\\C:\\foo;bar",
+    otherPaths: [],
   },
   {
     name: "percent",
     furi: "file:///C:/foo%25bar",
-    windowsPath: "C:\\foo%bar",
+    shortWindowsPath: "C:\\foo%bar",
+    longWindowsPath: "\\\\?\\C:\\foo%bar",
+    otherPaths: [],
   },
   {
     name: "backslash",
     furi: "file:///C:/foo/bar",
-    windowsPath: "C:\\foo\\bar",
+    shortWindowsPath: "C:\\foo\\bar",
+    longWindowsPath: "\\\\?\\C:\\foo\\bar",
+    otherPaths: [],
   },
   {
     name: "backspace",
     furi: "file:///C:/foo%08bar",
-    windowsPath: "C:\\foo\bbar",
+    shortWindowsPath: "C:\\foo\bbar",
+    longWindowsPath: "\\\\?\\C:\\foo\bbar",
+    otherPaths: [],
   },
   {
     name: "tab",
     furi: "file:///C:/foo%09bar",
-    windowsPath: "C:\\foo\tbar",
+    shortWindowsPath: "C:\\foo\tbar",
+    longWindowsPath: "\\\\?\\C:\\foo\tbar",
+    otherPaths: [],
   },
   {
     name: "newline",
     furi: "file:///C:/foo%0Abar",
-    windowsPath: "C:\\foo\nbar",
+    shortWindowsPath: "C:\\foo\nbar",
+    longWindowsPath: "\\\\?\\C:\\foo\nbar",
+    otherPaths: [],
   },
   {
     name: "newline",
     furi: "file:///C:/foo%0Dbar",
-    windowsPath: "C:\\foo\rbar",
+    shortWindowsPath: "C:\\foo\rbar",
+    longWindowsPath: "\\\\?\\C:\\foo\rbar",
+    otherPaths: [],
   },
   {
     name: "latin1",
     furi: "file:///C:/f%C3%B3%C3%B3b%C3%A0r",
-    windowsPath: "C:\\fóóbàr",
+    shortWindowsPath: "C:\\fóóbàr",
+    longWindowsPath: "\\\\?\\C:\\fóóbàr",
+    otherPaths: [],
   },
   {
     name: "euro sign (BMP code point)",
     furi: "file:///C:/%E2%82%AC",
-    windowsPath: "C:\\€",
+    shortWindowsPath: "C:\\€",
+    longWindowsPath: "\\\\?\\C:\\€",
+    otherPaths: [],
   },
   {
     name: "rocket emoji (non-BMP code point)",
     furi: "file:///C:/%F0%9F%9A%80",
-    windowsPath: "C:\\🚀",
+    shortWindowsPath: "C:\\🚀",
+    longWindowsPath: "\\\\?\\C:\\🚀",
+    otherPaths: [],
+  },
+  {
+    name: "simple (server)",
+    furi: "file://server/foo",
+    shortWindowsPath: "\\\\server\\foo",
+    longWindowsPath: "\\\\?\\unc\\server\\foo",
+    otherPaths: ["\\\\?\\UNC\\server\\foo", "//?\\UNC\\server\\foo"],
+  },
+  {
+    name: "dir (server)",
+    furi: "file://server/dir/foo",
+    shortWindowsPath: "\\\\server\\dir\\foo",
+    longWindowsPath: "\\\\?\\unc\\server\\dir\\foo",
+    otherPaths: ["\\\\?\\UNC\\server\\dir\\foo", "//?\\UNC\\server\\dir\\foo"],
   },
 ];
 
-describe("toWindowsPath", function () {
+describe("toShortWindowsPath", function () {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.furi}` : item.furi;
     it(title, () => {
-      const expected: string = item.windowsPath;
-      const actual: string = toWindowsPath(item.furi);
+      const expected: string = item.shortWindowsPath;
+      const actual: string = toShortWindowsPath(item.furi);
+      chai.assert.strictEqual(actual, expected);
+    });
+  }
+});
+
+describe("toLongWindowsPath", function () {
+  for (const item of testItems) {
+    const title: string = item.name !== undefined ? `${item.name}: ${item.furi}` : item.furi;
+    it(title, () => {
+      const expected: string = item.longWindowsPath;
+      const actual: string = toLongWindowsPath(item.furi);
       chai.assert.strictEqual(actual, expected);
     });
   }
@@ -118,11 +183,14 @@ describe("toWindowsPath", function () {
 
 describe("fromWindowsPath", function () {
   for (const item of testItems) {
-    const title: string = item.name !== undefined ? `${item.name}: ${item.windowsPath}` : item.windowsPath;
-    it(title, () => {
-      const expected: string = item.furi;
-      const actual: string = fromWindowsPath(item.windowsPath).href;
-      chai.assert.strictEqual(actual, expected);
-    });
+    const expected: string = item.furi;
+    const inputs: string[] = [item.shortWindowsPath, item.longWindowsPath, ...item.otherPaths];
+    for (const input of inputs) {
+      const title: string = item.name !== undefined ? `${item.name}: ${input}` : input;
+      it(title, () => {
+        const actual: string = fromWindowsPath(input).href;
+        chai.assert.strictEqual(actual, expected);
+      });
+    }
   }
 });
