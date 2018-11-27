@@ -11,10 +11,17 @@ interface TestItem {
 
 const testItems: TestItem[] = [
   {
-    name: "simple",
+    name: "lowercase ascii alpha",
     furi: "file:///C:/foo",
     shortWindowsPath: "C:\\foo",
     longWindowsPath: "\\\\?\\C:\\foo",
+    otherPaths: [],
+  },
+  {
+    name: "uppercase ascii alpha",
+    furi: "file:///C:/FOO",
+    shortWindowsPath: "C:\\FOO",
+    longWindowsPath: "\\\\?\\C:\\FOO",
     otherPaths: [],
   },
   {
@@ -116,7 +123,7 @@ const testItems: TestItem[] = [
     otherPaths: [],
   },
   {
-    name: "newline",
+    name: "carriage return",
     furi: "file:///C:/foo%0Dbar",
     shortWindowsPath: "C:\\foo\rbar",
     longWindowsPath: "\\\\?\\C:\\foo\rbar",
@@ -148,14 +155,14 @@ const testItems: TestItem[] = [
     furi: "file://server/foo",
     shortWindowsPath: "\\\\server\\foo",
     longWindowsPath: "\\\\?\\unc\\server\\foo",
-    otherPaths: ["\\\\?\\UNC\\server\\foo", "//?\\UNC\\server\\foo"],
+    otherPaths: ["\\\\?\\UNC\\server\\foo", "//?\\unc\\server\\foo"],
   },
   {
     name: "dir (server)",
     furi: "file://server/dir/foo",
     shortWindowsPath: "\\\\server\\dir\\foo",
     longWindowsPath: "\\\\?\\unc\\server\\dir\\foo",
-    otherPaths: ["\\\\?\\UNC\\server\\dir\\foo", "//?\\UNC\\server\\dir\\foo"],
+    otherPaths: ["\\\\?\\UNC\\server\\dir\\foo", "//?\\unc\\server\\dir\\foo"],
   },
 ];
 

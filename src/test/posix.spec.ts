@@ -10,10 +10,16 @@ interface TestItem {
 
 const testItems: TestItem[] = [
   {
-    name: "simple",
+    name: "lowercase ascii alpha",
     furi: "file:///foo",
     posixPath: "/foo",
     otherFuris: ["file://localhost/foo"],
+  },
+  {
+    name: "uppercase ascii alpha",
+    furi: "file:///FOO",
+    posixPath: "/FOO",
+    otherFuris: ["file://localhost/FOO"],
   },
   {
     name: "dir",
@@ -100,7 +106,7 @@ const testItems: TestItem[] = [
     otherFuris: [],
   },
   {
-    name: "newline",
+    name: "carriage return",
     furi: "file:///foo%0Dbar",
     posixPath: "/foo\rbar",
     otherFuris: [],
