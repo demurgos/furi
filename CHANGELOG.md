@@ -1,3 +1,8 @@
+# Next
+
+- **[Feature]** Publish `.mjs` files.
+- **[Fix]** Update dependencies.
+
 # 1.0.0 (2018-11-21)
 
 - **[Breaking change]** Rename `toShortWindowsPath` to `toWindowsShortPath`.
