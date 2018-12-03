@@ -104,7 +104,7 @@
 					<div class="tsd-signature tsd-kind-icon">WINDOWS_<wbr>PREFIX_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^[\\/]{2,}([^\\/]+)(?:$|[\\/]+)/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L152">index.ts:152</a></li>
+							<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L152">index.ts:152</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -114,7 +114,7 @@
 					<div class="tsd-signature tsd-kind-icon">WINDOWS_<wbr>UNC_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^unc(?:$|[\\/]+)([^\\/]+)(?:$|[\\/]+)/i</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L153">index.ts:153</a></li>
+							<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L153">index.ts:153</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -131,7 +131,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L245">index.ts:245</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L245">index.ts:245</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -167,7 +167,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L258">index.ts:258</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L258">index.ts:258</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -202,7 +202,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L214">index.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L214">index.ts:214</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -210,9 +210,8 @@
 									<p>Converts an absolute Posix path to a frozen URL object.</p>
 								</div>
 								<p>Example:</p>
-								<pre><code class="lang-js">fromPosixPath(<span class="hljs-string">"/dir/foo"</span>);
-<span class="hljs-comment">// -&gt; new URL(file:///dir/foo");</span>
-</code></pre>
+								<pre><code class="language-js">fromPosixPath(<span class="hljs-string">"/dir/foo"</span>);
+<span class="hljs-comment">// -&gt; new URL(file:///dir/foo");</span></code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -238,7 +237,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L148">index.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L148">index.ts:148</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -248,14 +247,13 @@
 								<p>Use <code>fromPosixPath</code> or <code>fromWindowsPath</code> if you want system-independent
 								results.</p>
 								<p>Example:</p>
-								<pre><code class="lang-js"><span class="hljs-comment">// On a Windows system:</span>
+								<pre><code class="language-js"><span class="hljs-comment">// On a Windows system:</span>
 fromSysPath(<span class="hljs-string">"C:\\dir\\foo"</span>);
 <span class="hljs-comment">// -&gt; new URL("file:///C:/dir/foo");</span>
 
 <span class="hljs-comment">// On a Posix system:</span>
 fromSysPath(<span class="hljs-string">"/dir/foo"</span>);
-<span class="hljs-comment">// -&gt; new URL("file:///dir/foo");</span>
-</code></pre>
+<span class="hljs-comment">// -&gt; new URL("file:///dir/foo");</span></code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -281,7 +279,7 @@ fromSysPath(<span class="hljs-string">"/dir/foo"</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L169">index.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L169">index.ts:169</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -289,11 +287,10 @@ fromSysPath(<span class="hljs-string">"/dir/foo"</span>);
 									<p>Converts an absolute Windows path to a frozen URL object.</p>
 								</div>
 								<p>Example:</p>
-								<pre><code class="lang-js">fromWindowsPath(<span class="hljs-string">"C:\\dir\\foo"</span>);
+								<pre><code class="language-js">fromWindowsPath(<span class="hljs-string">"C:\\dir\\foo"</span>);
 <span class="hljs-comment">// -&gt; new URL(file:///C:/dir/foo");</span>
 fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span>);
-<span class="hljs-comment">// -&gt; new URL("file://server/Users/foo");</span>
-</code></pre>
+<span class="hljs-comment">// -&gt; new URL("file://server/Users/foo");</span></code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -319,7 +316,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L234">index.ts:234</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L234">index.ts:234</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -354,7 +351,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L224">index.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L224">index.ts:224</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -389,7 +386,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L119">index.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L119">index.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -398,9 +395,8 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 								</div>
 								<p>Requires the host to be either an empty string or <code>&quot;localhost&quot;</code>.</p>
 								<p>Example:</p>
-								<pre><code class="lang-js">toPosixPath(<span class="hljs-string">"file:///dir/foo"</span>);
-<span class="hljs-comment">// -&gt; "/dir/foo";</span>
-</code></pre>
+								<pre><code class="language-js">toPosixPath(<span class="hljs-string">"file:///dir/foo"</span>);
+<span class="hljs-comment">// -&gt; "/dir/foo";</span></code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -426,7 +422,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L32">index.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L32">index.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -436,7 +432,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 								<p>Use <code>toPosixPath</code>, <code>toWindowsShortPath</code> or <code>toWindowsLongPath</code> if you
 								want system-independent results.</p>
 								<p>Example:</p>
-								<pre><code class="lang-js"><span class="hljs-comment">// On a Windows system:</span>
+								<pre><code class="language-js"><span class="hljs-comment">// On a Windows system:</span>
 toSysPath(<span class="hljs-string">"file:///C:/dir/foo"</span>);
 <span class="hljs-comment">// -&gt; "C:\\dir\\foo";</span>
 toSysPath(<span class="hljs-string">"file:///C:/dir/foo"</span>, <span class="hljs-literal">true</span>);
@@ -444,8 +440,7 @@ toSysPath(<span class="hljs-string">"file:///C:/dir/foo"</span>, <span class="hl
 
 <span class="hljs-comment">// On a Posix system:</span>
 toSysPath(<span class="hljs-string">"file:///dir/foo"</span>);
-<span class="hljs-comment">// -&gt; "/dir/foo";</span>
-</code></pre>
+<span class="hljs-comment">// -&gt; "/dir/foo";</span></code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -477,7 +472,7 @@ toSysPath(<span class="hljs-string">"file:///dir/foo"</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L88">index.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L88">index.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,11 +481,10 @@ toSysPath(<span class="hljs-string">"file:///dir/foo"</span>);
 								</div>
 								<p>The result is either a long device path or a long UNC server path.</p>
 								<p>Example:</p>
-								<pre><code class="lang-js">toWindowsPath(<span class="hljs-string">"file:///C:/dir/foo"</span>);
+								<pre><code class="language-js">toWindowsPath(<span class="hljs-string">"file:///C:/dir/foo"</span>);
 <span class="hljs-comment">// -&gt; "\\\\?\\C:\\dir\\foo";</span>
 toWindowsPath(<span class="hljs-string">"file://server/Users/foo"</span>);
-<span class="hljs-comment">// -&gt; "\\\\?\\unc\\server\\Users\\foo";</span>
-</code></pre>
+<span class="hljs-comment">// -&gt; "\\\\?\\unc\\server\\Users\\foo";</span></code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -516,7 +510,7 @@ toWindowsPath(<span class="hljs-string">"file://server/Users/foo"</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/bd02f89/src/lib/index.ts#L56">index.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/c7ffcd3/src/lib/index.ts#L56">index.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -525,11 +519,10 @@ toWindowsPath(<span class="hljs-string">"file://server/Users/foo"</span>);
 								</div>
 								<p>The result is either a short device path or a short UNC server path.</p>
 								<p>Example:</p>
-								<pre><code class="lang-js">toSysPath(<span class="hljs-string">"file:///C:/dir/foo"</span>);
+								<pre><code class="language-js">toSysPath(<span class="hljs-string">"file:///C:/dir/foo"</span>);
 <span class="hljs-comment">// -&gt; "C:\\dir\\foo";</span>
 toSysPath(<span class="hljs-string">"file://server/Users/foo"</span>);
-<span class="hljs-comment">// -&gt; "\\\\server\\Users\\foo";</span>
-</code></pre>
+<span class="hljs-comment">// -&gt; "\\\\server\\Users\\foo";</span></code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
