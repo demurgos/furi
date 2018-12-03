@@ -1,6 +1,6 @@
 {
   "name": "furi",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "File URI manipulation library",
   "private": true,
   "main": "dist/lib/index",
