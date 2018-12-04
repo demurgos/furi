@@ -1,3 +1,7 @@
+# Next
+
+- **[Feature]** Add `parent` function.
+
 # 1.2.0 (2018-12-04)
 
 - **[Feature]** Add `join` function.

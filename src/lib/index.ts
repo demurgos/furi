@@ -68,6 +68,29 @@ export function join(base: UrlLike, components: ReadonlyArray<string>): url.URL 
 }
 
 /**
+ * Returns the parent URL.
+ *
+ * If `input` is the root, it returns itself (saturation).
+ * If `input` has a trailing separator, it is first removed.
+ *
+ * @param input Input URL.
+ * @returns Parent URL.
+ */
+export function parent(input: UrlLike): url.URL {
+  const writable: url.URL = asWritableUrl(input);
+  const oldPathname: string = writable.pathname;
+  const components: string[] = oldPathname.split("/");
+  if (components[components.length - 1] === "") {
+    // Remove trailing separator
+    components.pop();
+  }
+  components.pop();
+  writable.pathname = components.join("/");
+  freezeUrl(writable);
+  return writable;
+}
+
+/**
  * Converts a File URI to a system-dependent path.
  *
  * Use `toPosixPath`, `toWindowsShortPath` or `toWindowsLongPath` if you
