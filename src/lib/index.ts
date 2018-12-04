@@ -7,6 +7,67 @@ import isWindows from "is-windows";
 import url from "url";
 
 /**
+ * A `URL` instance or valid URL string.
+ */
+export type UrlLike = url.URL | string;
+
+/**
+ * Normalizes the input to a frozen `URL` instance.
+ *
+ * @param input URL string or instance to normalize.
+ */
+export function asFuri(input: UrlLike): url.URL {
+  if (typeof input === "string") {
+    const writable: url.URL = new url.URL(input);
+    freezeUrl(writable);
+    return writable;
+  } else if (!Object.isFrozen(input)) {
+    const writable: url.URL = new url.URL(input.toString());
+    freezeUrl(writable);
+    return writable;
+  } else {
+    return input;
+  }
+}
+
+/**
+ * Normalizes the input to a writable `URL` instance.
+ *
+ * @param input URL string or instance to normalize.
+ */
+export function asWritableUrl(input: UrlLike): url.URL {
+  return new url.URL(typeof input === "string" ? input : input.toString());
+}
+
+/**
+ * Appends the provided components to the pathname of `base`.
+ *
+ * It does not mutate the inputs.
+ * If component list is non-empty, the `hash` and `search` are set to the
+ * empty string.
+ *
+ * @param base Base URL.
+ * @param components Path components to append.
+ * @returns Joined URL.
+ */
+export function join(base: UrlLike, components: ReadonlyArray<string>): url.URL {
+  if (components.length === 0) {
+    return asFuri(base);
+  }
+  const writable: url.URL = asWritableUrl(base);
+  const oldPathname: string = writable.pathname;
+  const tail: string = components
+    .map(encodeURIComponent)
+    .join("/");
+  writable.hash = "";
+  writable.search = "";
+  const separator: string = oldPathname.endsWith("/") ? "" : "/";
+  writable.pathname = `${oldPathname}${separator}${tail}`;
+  freezeUrl(writable);
+  return writable;
+}
+
+/**
  * Converts a File URI to a system-dependent path.
  *
  * Use `toPosixPath`, `toWindowsShortPath` or `toWindowsLongPath` if you
