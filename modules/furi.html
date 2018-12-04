@@ -70,6 +70,12 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="furi.html#urllike" class="tsd-kind-icon">Url<wbr>Like</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
@@ -80,11 +86,14 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="furi.html#asfuri" class="tsd-kind-icon">as<wbr>Furi</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="furi.html#aswritableurl" class="tsd-kind-icon">as<wbr>Writable<wbr>Url</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="furi.html#formatfileurl" class="tsd-kind-icon">format<wbr>File<wbr>Url</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="furi.html#freezeurl" class="tsd-kind-icon">freeze<wbr>Url</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="furi.html#fromposixpath" class="tsd-kind-icon">from<wbr>Posix<wbr>Path</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="furi.html#fromsyspath" class="tsd-kind-icon">from<wbr>Sys<wbr>Path</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="furi.html#fromwindowspath" class="tsd-kind-icon">from<wbr>Windows<wbr>Path</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="furi.html#join" class="tsd-kind-icon">join</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="furi.html#tobackwardslashes" class="tsd-kind-icon">to<wbr>Backward<wbr>Slashes</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="furi.html#toforwardslashes" class="tsd-kind-icon">to<wbr>Forward<wbr>Slashes</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="furi.html#toposixpath" class="tsd-kind-icon">to<wbr>Posix<wbr>Path</a></li>
@@ -96,6 +105,24 @@
 					</div>
 				</section>
 			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
+					<a name="urllike" class="tsd-anchor"></a>
+					<h3>Url<wbr>Like</h3>
+					<div class="tsd-signature tsd-kind-icon">Url<wbr>Like<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L12">index.ts:12</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A <code>URL</code> instance or valid URL string.</p>
+						</div>
+					</div>
+				</section>
+			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
@@ -104,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">WINDOWS_<wbr>PREFIX_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^[\\/]{2,}([^\\/]+)(?:$|[\\/]+)/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L152">index.ts:152</a></li>
+							<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L213">index.ts:213</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -114,13 +141,75 @@
 					<div class="tsd-signature tsd-kind-icon">WINDOWS_<wbr>UNC_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^unc(?:$|[\\/]+)([^\\/]+)(?:$|[\\/]+)/i</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L153">index.ts:153</a></li>
+							<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L214">index.ts:214</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="asfuri" class="tsd-anchor"></a>
+					<h3>as<wbr>Furi</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">as<wbr>Furi<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="furi.html#urllike" class="tsd-signature-type">UrlLike</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L19">index.ts:19</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Normalizes the input to a frozen <code>URL</code> instance.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>input: <a href="furi.html#urllike" class="tsd-signature-type">UrlLike</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>URL string or instance to normalize.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="aswritableurl" class="tsd-anchor"></a>
+					<h3>as<wbr>Writable<wbr>Url</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">as<wbr>Writable<wbr>Url<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="furi.html#urllike" class="tsd-signature-type">UrlLike</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L38">index.ts:38</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Normalizes the input to a writable <code>URL</code> instance.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>input: <a href="furi.html#urllike" class="tsd-signature-type">UrlLike</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>URL string or instance to normalize.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="formatfileurl" class="tsd-anchor"></a>
 					<h3>format<wbr>File<wbr>Url</h3>
@@ -131,7 +220,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L245">index.ts:245</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L306">index.ts:306</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -167,7 +256,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L258">index.ts:258</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L319">index.ts:319</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -202,7 +291,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L214">index.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L275">index.ts:275</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -237,7 +326,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L148">index.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L209">index.ts:209</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -279,7 +368,7 @@ fromSysPath(<span class="hljs-string">"/dir/foo"</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L169">index.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L230">index.ts:230</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -306,6 +395,47 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="join" class="tsd-anchor"></a>
+					<h3>join</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">join<span class="tsd-signature-symbol">(</span>base<span class="tsd-signature-symbol">: </span><a href="furi.html#urllike" class="tsd-signature-type">UrlLike</a>, components<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L53">index.ts:53</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Appends the provided components to the pathname of <code>base</code>.</p>
+								</div>
+								<p>It does not mutate the inputs.
+									If component list is non-empty, the <code>hash</code> and <code>search</code> are set to the
+								empty string.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>base: <a href="furi.html#urllike" class="tsd-signature-type">UrlLike</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Base URL.</p>
+									</div>
+								</li>
+								<li>
+									<h5>components: <span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Path components to append.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+							<p>Joined URL.</p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="tobackwardslashes" class="tsd-anchor"></a>
 					<h3>to<wbr>Backward<wbr>Slashes</h3>
@@ -316,7 +446,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L234">index.ts:234</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L295">index.ts:295</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -351,7 +481,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L224">index.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L285">index.ts:285</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -386,7 +516,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L119">index.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L180">index.ts:180</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -422,7 +552,7 @@ fromWindowsPath(<span class="hljs-string">"\\\\?\\unc\\server\\Users\\foo"</span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L32">index.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L93">index.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -472,7 +602,7 @@ toSysPath(<span class="hljs-string">"file:///dir/foo"</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L88">index.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L149">index.ts:149</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -510,7 +640,7 @@ toWindowsPath(<span class="hljs-string">"file://server/Users/foo"</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/demurgos/furi/blob/b982459/src/lib/index.ts#L56">index.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/demurgos/furi/blob/7bf29c9/src/lib/index.ts#L117">index.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -553,11 +683,20 @@ toSysPath(<span class="hljs-string">"file://server/Users/foo"</span>);
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="furi.html#urllike" class="tsd-kind-icon">Url<wbr>Like</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="furi.html#windows_prefix_regex" class="tsd-kind-icon">WINDOWS_<wbr>PREFIX_<wbr>REGEX</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="furi.html#windows_unc_regex" class="tsd-kind-icon">WINDOWS_<wbr>UNC_<wbr>REGEX</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="furi.html#asfuri" class="tsd-kind-icon">as<wbr>Furi</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="furi.html#aswritableurl" class="tsd-kind-icon">as<wbr>Writable<wbr>Url</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="furi.html#formatfileurl" class="tsd-kind-icon">format<wbr>File<wbr>Url</a>
@@ -573,6 +712,9 @@ toSysPath(<span class="hljs-string">"file://server/Users/foo"</span>);
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="furi.html#fromwindowspath" class="tsd-kind-icon">from<wbr>Windows<wbr>Path</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="furi.html#join" class="tsd-kind-icon">join</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="furi.html#tobackwardslashes" class="tsd-kind-icon">to<wbr>Backward<wbr>Slashes</a>
