@@ -1,5 +1,6 @@
 # Next
 
+- **[Feature]** Add `basename`.
 - **[Fix]** Update dependencies.
 - **[Internal]** Update to `travis-ci.com`.
 

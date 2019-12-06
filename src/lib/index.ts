@@ -68,6 +68,29 @@ export function join(base: UrlLike, components: ReadonlyArray<string>): url.URL 
 }
 
 /**
+ * Returns the basename of the file URI.
+ *
+ * This function is similar to Node's `require("path").basename`.
+ *
+ * @param furi Absolute `file://` URI.
+ * @param ext Extension (will be removed if present).
+ * @returns URI-encoded basename.
+ */
+export function basename(furi: UrlLike, ext?: string): string {
+  const readable: url.URL = asFuri(furi);
+  const components: readonly string[] = readable.pathname
+    .split("/")
+    .filter(c => c !== "");
+  const basename: string = components.length > 0 ? components[components.length - 1] : "";
+  if (ext !== undefined && ext.length > 0 && ext.length < basename.length) {
+    if (basename.endsWith(ext)) {
+      return basename.substr(0, basename.length - ext.length);
+    }
+  }
+  return basename;
+}
+
+/**
  * Returns the parent URL.
  *
  * If `input` is the root, it returns itself (saturation).
