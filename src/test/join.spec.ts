@@ -5,7 +5,7 @@ import { join } from "../lib";
 interface TestItem {
   readonly name?: string;
   readonly base: string;
-  readonly components: ReadonlyArray<string>;
+  readonly components: readonly string[];
   readonly expected: string;
 }
 

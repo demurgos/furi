@@ -68,6 +68,59 @@ export function join(base: UrlLike, components: ReadonlyArray<string>): url.URL 
 }
 
 /**
+ * Joins a file URI with additional extra paths.
+ *
+ * This function preserves trailing slashes.
+ *
+ * @param base Base `file://` URI.
+ * @param uriPaths Array of relative URI paths. The special characters must
+ *        already be URI-encoded.
+ * @returns Normalized absolute URI.
+ */
+export function append(base: UrlLike, ...uriPaths: readonly string[]): url.URL {
+  if (uriPaths.length === 0) {
+    return asFuri(base);
+  }
+  const writable: url.URL = asWritableUrl(base);
+
+  const segments: string[] = writable.pathname.split("/");
+  let hasTrailingSlash: boolean = false;
+  if (segments.length > 0 && segments[segments.length - 1] === "") {
+    segments.pop();
+    hasTrailingSlash = true;
+  }
+  for (const uriPath of uriPaths) {
+    if (uriPath === "") {
+      continue;
+    }
+    for (const [i, segment] of uriPath.split("/").entries()) {
+      if (segment === "") {
+        if (i > 0 && hasTrailingSlash) {
+          segments.push("");
+        }
+        hasTrailingSlash = true;
+      } else {
+        segments.push(segment);
+        hasTrailingSlash = true;
+      }
+    }
+    hasTrailingSlash = false;
+    if (segments.length > 0 && segments[segments.length - 1] === "") {
+      segments.pop();
+      hasTrailingSlash = true;
+    }
+  }
+  if (hasTrailingSlash) {
+    segments.push("");
+  }
+  writable.hash = "";
+  writable.search = "";
+  writable.pathname = segments.join("/");
+  freezeUrl(writable);
+  return writable;
+}
+
+/**
  * Returns the basename of the file URI.
  *
  * This function is similar to Node's `require("path").basename`.
