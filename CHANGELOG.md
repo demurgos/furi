@@ -1,6 +1,7 @@
 # Next
 
 - **[Fix]** Update dependencies.
+- **[Internal]** Update to `travis-ci.com`.
 
 # 1.3.0 (2018-12-04)
 
