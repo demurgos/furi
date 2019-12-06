@@ -1,3 +1,7 @@
+# Next
+
+- **[Fix]** Update dependencies.
+
 # 1.3.0 (2018-12-04)
 
 - **[Feature]** Add `parent` function.

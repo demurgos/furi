@@ -26,7 +26,7 @@ set -e
 
 # Space out deploys by at least this interval, 1day == 86400sec
 DEPLOY_INTERVAL=86400
-# Deploy only on merge commit to this branch
+# Deploy only on merge commit to this repo
 MAIN_REPO="demurgos/furi"
 # Deploy only on merge commit to this branch
 MAIN_BRANCH="master"
@@ -160,9 +160,9 @@ echo ""
 echo "Deploying to npm..."
 echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 if [[ ${CI_BUILD_TYPE} == "tag" ]]; then
-  gulp lib:dist:publish
+  gulp lib:publish
 else
-  gulp lib:dist:publish --dev-dist ${BUILD_ID}
+  gulp lib:publish --next ${BUILD_ID}
 fi
 
 echo "Successfully deployed to npm"
