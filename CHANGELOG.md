@@ -1,5 +1,7 @@
 # Next
 
+- **[Breaking change]** Remove repeated slashes from pathnames.
+- **[Feature]** Add `Furi` class enforcing file URI invariants.
 - **[Feature]** Add `basename`.
 - **[Feature]** Add `append`.
 - **[Fix]** Update dependencies.

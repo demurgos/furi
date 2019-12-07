@@ -31,12 +31,12 @@ const testItems: TestItem[] = [
   {
     base: "file:///foo",
     uriPaths: ["bar//baz"],
-    expected: "file:///foo/bar//baz",
+    expected: "file:///foo/bar/baz",
   },
   {
     base: "file:///foo",
     uriPaths: ["bar///baz"],
-    expected: "file:///foo/bar///baz",
+    expected: "file:///foo/bar/baz",
   },
   {
     name: "append nothing",
@@ -72,7 +72,7 @@ const testItems: TestItem[] = [
     name: "append a double-slash uriPath",
     base: "file:///foo",
     uriPaths: ["//"],
-    expected: "file:///foo//",
+    expected: "file:///foo/",
   },
   {
     name: "append a simple uriPath to a base with a trailing slash",
@@ -104,12 +104,12 @@ const testItems: TestItem[] = [
   {
     base: "file:///foo/",
     uriPaths: ["bar//", "/baz"],
-    expected: "file:///foo/bar//baz",
+    expected: "file:///foo/bar/baz",
   },
   {
     base: "file:///foo/",
     uriPaths: ["bar//", "//baz"],
-    expected: "file:///foo/bar///baz",
+    expected: "file:///foo/bar/baz",
   },
   {
     base: "file:///foo/",
@@ -119,27 +119,27 @@ const testItems: TestItem[] = [
   {
     base: "file:///foo//",
     uriPaths: ["bar/", "/baz/"],
-    expected: "file:///foo//bar/baz/",
+    expected: "file:///foo/bar/baz/",
   },
   {
     base: "file:///foo//",
     uriPaths: ["bar//", "baz//"],
-    expected: "file:///foo//bar//baz//",
+    expected: "file:///foo/bar/baz/",
   },
   {
     base: "file:///foo//",
     uriPaths: ["bar//", "", "baz//"],
-    expected: "file:///foo//bar//baz//",
+    expected: "file:///foo/bar/baz/",
   },
   {
     base: "file:///foo//",
     uriPaths: ["bar//", "", "/baz//"],
-    expected: "file:///foo//bar//baz//",
+    expected: "file:///foo/bar/baz/",
   },
   {
     base: "file:///foo//",
     uriPaths: ["bar//", "/", "/baz//"],
-    expected: "file:///foo//bar//baz//",
+    expected: "file:///foo/bar/baz/",
   },
   {
     base: "file:///foo",

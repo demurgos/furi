@@ -6,27 +6,107 @@ import assert from "assert";
 import isWindows from "is-windows";
 import url from "url";
 
+class InvalidFileUri extends TypeError {
+  public input: string;
+  public code: string;
+
+  constructor(input: string) {
+    super();
+    this.input = input;
+    this.message = `Invalid file URI: ${input}`;
+    this.name = "TypeError [ERR_INVALID_FILE_URI]";
+    this.code = "ERR_INVALID_FILE_URI";
+  }
+}
+
 /**
- * A `URL` instance or valid URL string.
+ * A class representing a normalized absolute `file://` URI.
+ *
+ * This is a subclass of `url.URL` with the following extra checks:
+ * - The protocol is `file:`.
+ * - The pathname does not contain consecutive slashes (`a//b`) ("normalization").
+ * - The pathname does not contain the `.` or `..` segments (enforced by `url.URL` already).
+ *
+ * This class extends `url.URL`. This means that you can pass it to any
+ * function expecting a `url.URL`. It also means that the URI is always
+ * absolute.
+ *
+ * Notes:
+ * - A single trailing slash is allowed.
+ * - The hostname is allowed to be any string. A non-empty string is used by Windows to represents
+ *   files on a network drive. An empty string means `localhost`.
+ * - The `username`, `password` and `port` properties are always `""` (enforced by `url.URL`
+ *   already for the `file:` protocol). This implies that `host` only contains `hostname`.
+ * - The `search` and `hash` properties can have any value.
+ */
+export class Furi extends url.URL {
+  constructor(input: UrlLike) {
+    const strInput: string = `${input}`;
+    super(strInput);
+    if (this.protocol !== "file:") {
+      throw new InvalidFileUri(strInput);
+    }
+    if (this.pathname.indexOf("//") >= 0) {
+      this.pathname = this.pathname.replace(/\/+/g, "/");
+    }
+  }
+
+  get protocol(): string {
+    return super.protocol;
+  }
+
+  set protocol(value: string) {
+    if (value !== "file:") {
+      return;
+    }
+    super.protocol = value;
+  }
+
+  get pathname(): string {
+    return super.pathname;
+  }
+
+  set pathname(value: string) {
+    if (value.indexOf("//") >= 0) {
+      value = value.replace(/\/+/g, "/");
+    }
+    super.pathname = value;
+  }
+
+  hasTrailingSlash(): boolean {
+    return this.pathname !== "/" && this.pathname.endsWith("/");
+  }
+
+  setTrailingSlash(hasTrailingSlash: boolean): void {
+    if (this.pathname === "/") {
+      return;
+    }
+    if (this.pathname.endsWith("/")) {
+      if (!hasTrailingSlash) {
+        this.pathname = this.pathname.substring(0, this.pathname.length - 1);
+      }
+    } else if (hasTrailingSlash) {
+      this.pathname = `${this.pathname}/`;
+    }
+  }
+}
+
+/**
+ * A `URL` instance or valid _absolute_ URL string.
  */
 export type UrlLike = url.URL | string;
 
 /**
- * Normalizes the input to a frozen `URL` instance.
+ * Normalizes the input to a `Furi` instance.
  *
  * @param input URL string or instance to normalize.
+ * @returns `Furi` instance. It is always a new instance.
  */
-export function asFuri(input: UrlLike): url.URL {
-  if (typeof input === "string") {
-    const writable: url.URL = new url.URL(input);
-    freezeUrl(writable);
-    return writable;
-  } else if (!Object.isFrozen(input)) {
-    const writable: url.URL = new url.URL(input.toString());
-    freezeUrl(writable);
-    return writable;
+export function asFuri(input: UrlLike): Furi {
+  if (input instanceof url.URL) {
+    return new Furi(input.toString());
   } else {
-    return input;
+    return new Furi(input);
   }
 }
 
@@ -50,21 +130,16 @@ export function asWritableUrl(input: UrlLike): url.URL {
  * @param components Path components to append.
  * @returns Joined URL.
  */
-export function join(base: UrlLike, components: ReadonlyArray<string>): url.URL {
+export function join(base: UrlLike, components: ReadonlyArray<string>): Furi {
+  const result: Furi = asFuri(base);
   if (components.length === 0) {
-    return asFuri(base);
+    return result;
   }
-  const writable: url.URL = asWritableUrl(base);
-  const oldPathname: string = writable.pathname;
-  const tail: string = components
-    .map(encodeURIComponent)
-    .join("/");
-  writable.hash = "";
-  writable.search = "";
-  const separator: string = oldPathname.endsWith("/") ? "" : "/";
-  writable.pathname = `${oldPathname}${separator}${tail}`;
-  freezeUrl(writable);
-  return writable;
+  result.setTrailingSlash(false);
+  result.pathname = `${result.pathname}/${components.map(encodeURIComponent).join("/")}`;
+  result.hash = "";
+  result.search = "";
+  return result;
 }
 
 /**
@@ -77,47 +152,28 @@ export function join(base: UrlLike, components: ReadonlyArray<string>): url.URL 
  *        already be URI-encoded.
  * @returns Normalized absolute URI.
  */
-export function append(base: UrlLike, ...uriPaths: readonly string[]): url.URL {
+export function append(base: UrlLike, ...uriPaths: readonly string[]): Furi {
+  const result: Furi = asFuri(base);
   if (uriPaths.length === 0) {
-    return asFuri(base);
+    return result;
   }
-  const writable: url.URL = asWritableUrl(base);
 
-  const segments: string[] = writable.pathname.split("/");
-  let hasTrailingSlash: boolean = false;
-  if (segments.length > 0 && segments[segments.length - 1] === "") {
-    segments.pop();
-    hasTrailingSlash = true;
-  }
+  let hasTrailingSlash: boolean = result.hasTrailingSlash();
+  const segments: string[] = result.pathname.split("/");
   for (const uriPath of uriPaths) {
     if (uriPath === "") {
       continue;
     }
-    for (const [i, segment] of uriPath.split("/").entries()) {
-      if (segment === "") {
-        if (i > 0 && hasTrailingSlash) {
-          segments.push("");
-        }
-        hasTrailingSlash = true;
-      } else {
-        segments.push(segment);
-        hasTrailingSlash = true;
-      }
-    }
-    hasTrailingSlash = false;
-    if (segments.length > 0 && segments[segments.length - 1] === "") {
-      segments.pop();
-      hasTrailingSlash = true;
+    for (const segment of uriPath.split("/")) {
+      segments.push(segment);
+      hasTrailingSlash = segment === "";
     }
   }
-  if (hasTrailingSlash) {
-    segments.push("");
-  }
-  writable.hash = "";
-  writable.search = "";
-  writable.pathname = segments.join("/");
-  freezeUrl(writable);
-  return writable;
+  result.pathname = segments.join("/");
+  result.setTrailingSlash(hasTrailingSlash);
+  result.hash = "";
+  result.search = "";
+  return result;
 }
 
 /**
@@ -162,7 +218,6 @@ export function parent(input: UrlLike): url.URL {
   }
   components.pop();
   writable.pathname = components.join("/");
-  freezeUrl(writable);
   return writable;
 }
 
@@ -339,7 +394,6 @@ export function fromWindowsPath(absPath: string): url.URL {
     const result: url.URL = new url.URL("file:///");
     result.host = prefix;
     result.pathname = encodeURI(`/${toForwardSlashes(tail)}`);
-    freezeUrl(result);
     return result;
   }
   // Long path
@@ -354,7 +408,6 @@ export function fromWindowsPath(absPath: string): url.URL {
     const result: url.URL = new url.URL("file:///");
     result.host = host;
     result.pathname = encodeURI(`/${toForwardSlashes(serverPath)}`);
-    freezeUrl(result);
     return result;
   }
 }
@@ -405,17 +458,5 @@ function toBackwardSlashes(str: string): string {
 function formatFileUrl(pathname: string): url.URL {
   const result: url.URL = new url.URL("file:///");
   result.pathname = encodeURI(pathname);
-  freezeUrl(result);
   return result;
-}
-
-/**
- * Freezes a URL object.
- *
- * @param writableUrl URL object to freeze.
- * @internal
- */
-function freezeUrl(writableUrl: url.URL): void {
-  Object.freeze(writableUrl.searchParams);
-  Object.freeze(writableUrl);
 }

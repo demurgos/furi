@@ -38,7 +38,7 @@ const testItems: TestItem[] = [
     name: "lowercase ascii alpha, 2 empty string components",
     base: "file:///foo",
     components: ["", ""],
-    expected: "file:///foo//",
+    expected: "file:///foo/",
   },
   {
     name: "trailing separator, 1 simple component",
@@ -68,7 +68,7 @@ const testItems: TestItem[] = [
     name: "trailing separator, 2 empty string components",
     base: "file:///foo/",
     components: ["", ""],
-    expected: "file:///foo//",
+    expected: "file:///foo/",
   },
   {
     name: "root, 1 simple component",
