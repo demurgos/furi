@@ -4,6 +4,7 @@
 - **[Feature]** Add `Furi` class enforcing file URI invariants.
 - **[Feature]** Add `basename`.
 - **[Feature]** Add `append`.
+- **[Feature]** Add `relative`.
 - **[Fix]** Update dependencies.
 - **[Internal]** Update to `travis-ci.com`.
 

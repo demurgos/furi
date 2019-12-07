@@ -26,6 +26,7 @@ class InvalidFileUri extends TypeError {
  * - The protocol is `file:`.
  * - The pathname does not contain consecutive slashes (`a//b`) ("normalization").
  * - The pathname does not contain the `.` or `..` segments (enforced by `url.URL` already).
+ * - The host `localhost` is represented as the empty string (enforced by `url.URL` already).
  *
  * This class extends `url.URL`. This means that you can pass it to any
  * function expecting a `url.URL`. It also means that the URI is always
@@ -36,7 +37,7 @@ class InvalidFileUri extends TypeError {
  * - The hostname is allowed to be any string. A non-empty string is used by Windows to represents
  *   files on a network drive. An empty string means `localhost`.
  * - The `username`, `password` and `port` properties are always `""` (enforced by `url.URL`
- *   already for the `file:` protocol). This implies that `host` only contains `hostname`.
+ *   already). This implies that `host` only contains `hostname`.
  * - The `search` and `hash` properties can have any value.
  */
 export class Furi extends url.URL {
@@ -174,6 +175,58 @@ export function append(base: UrlLike, ...uriPaths: readonly string[]): Furi {
   result.hash = "";
   result.search = "";
   return result;
+}
+
+/**
+ * Computes the relative or absolute `file://` URI from `from` to `to`.
+ *
+ * The result is an absolute URI only if the arguments have different hosts
+ * (for example when computing a URI between different Windows networked drives).
+ *
+ * If both URIs are equivalent, returns `""`.
+ *
+ * Otherwise, returns a relative URI starting with `"./"` or `"../".
+ *
+ * @param from Source URI.
+ * @param to Destination URI.
+ * @returns Relative (or absolute) URI between the two arguments.
+ */
+export function relative(from: UrlLike, to: UrlLike): string {
+  if (from === to) {
+    return "";
+  }
+  const fromUri: Furi = asFuri(from);
+  const toUri: Furi = asFuri(to);
+  if (fromUri.host !== toUri.host) {
+    return toUri.toString();
+  }
+  fromUri.setTrailingSlash(false);
+  const fromSegments: string[] = fromUri.pathname === "/" ? [""] : fromUri.pathname.split("/");
+  const toSegments: string[] = toUri.pathname === "/" ? [""] : toUri.pathname.split("/");
+  let commonSegments: number = 0;
+  for (let i: number = 0; i < Math.min(fromSegments.length, toSegments.length); i++) {
+    const fromSegment: string = fromSegments[i];
+    const toSegment: string = toSegments[i];
+    if (fromSegment === toSegment) {
+      commonSegments++;
+    } else {
+      break;
+    }
+  }
+  const resultSegments: string[] = [];
+  if (commonSegments === fromSegments.length) {
+    if (commonSegments === toSegments.length) {
+      // TODO: Handle hash and search
+      return "";
+    }
+    resultSegments.push(".");
+  } else {
+    for (let i: number = commonSegments; i < fromSegments.length; i++) {
+      resultSegments.push("..");
+    }
+  }
+  resultSegments.push(...toSegments.slice(commonSegments));
+  return resultSegments.join("/");
 }
 
 /**
