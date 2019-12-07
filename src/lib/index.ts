@@ -128,44 +128,33 @@ export function asWritableUrl(input: UrlLike): url.URL {
  * empty string.
  *
  * @param base Base URL.
- * @param components Path components to append.
+ * @param paths Paths to append. A path is either a string representing a relative or absolute file URI, or an array
+ *              of components. When passing an array of components, each component will be URI-encoded before being
+ *              appended.
  * @returns Joined URL.
  */
-export function join(base: UrlLike, components: ReadonlyArray<string>): Furi {
+export function join(base: UrlLike, ...paths: readonly (string | readonly string[])[]): Furi {
   const result: Furi = asFuri(base);
-  if (components.length === 0) {
-    return result;
-  }
-  result.setTrailingSlash(false);
-  result.pathname = `${result.pathname}/${components.map(encodeURIComponent).join("/")}`;
-  result.hash = "";
-  result.search = "";
-  return result;
-}
-
-/**
- * Joins a file URI with additional extra paths.
- *
- * This function preserves trailing slashes.
- *
- * @param base Base `file://` URI.
- * @param uriPaths Array of relative URI paths. The special characters must
- *        already be URI-encoded.
- * @returns Normalized absolute URI.
- */
-export function append(base: UrlLike, ...uriPaths: readonly string[]): Furi {
-  const result: Furi = asFuri(base);
-  if (uriPaths.length === 0) {
+  if (paths.length === 0) {
     return result;
   }
 
   let hasTrailingSlash: boolean = result.hasTrailingSlash();
   const segments: string[] = result.pathname.split("/");
-  for (const uriPath of uriPaths) {
-    if (uriPath === "") {
-      continue;
+  for (const p of paths) {
+    let pathStr: string;
+    if (typeof p === "string") {
+      if (p === "") {
+        continue;
+      }
+      pathStr = p;
+    } else {
+      if (p.length === 0) {
+        continue;
+      }
+      pathStr = `./${p.map(encodeURIComponent).join("/")}`;
     }
-    for (const segment of uriPath.split("/")) {
+    for (const segment of pathStr.split("/")) {
       segments.push(segment);
       hasTrailingSlash = segment === "";
     }

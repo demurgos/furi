@@ -3,7 +3,7 @@
 - **[Breaking change]** Remove repeated slashes from pathnames.
 - **[Feature]** Add `Furi` class enforcing file URI invariants.
 - **[Feature]** Add `basename`.
-- **[Feature]** Add `append`.
+- **[Feature]** Add support for relative URI strings for `join`.
 - **[Feature]** Add `relative`.
 - **[Fix]** Update dependencies.
 - **[Internal]** Update to `travis-ci.com`.
