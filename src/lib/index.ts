@@ -90,6 +90,22 @@ export class Furi extends url.URL {
       this.pathname = `${this.pathname}/`;
     }
   }
+
+  toSysPath(windowsLongPath: boolean = false): string {
+    return toSysPath(this, windowsLongPath);
+  }
+
+  toPosixPath(): string {
+    return toPosixPath(this);
+  }
+
+  toWindowsShortPath(): string {
+    return toWindowsShortPath(this);
+  }
+
+  toWindowsLongPath(): string {
+    return toWindowsLongPath(this);
+  }
 }
 
 /**
@@ -286,7 +302,7 @@ export function parent(input: UrlLike): url.URL {
  * @param windowsLongPath Use long paths on Windows. (default: `false`)
  * @return System-dependent path.
  */
-export function toSysPath(furi: string, windowsLongPath: boolean = false): string {
+export function toSysPath(furi: UrlLike, windowsLongPath: boolean = false): string {
   if (isWindows()) {
     return windowsLongPath ? toWindowsLongPath(furi) : toWindowsShortPath(furi);
   } else {
@@ -310,8 +326,8 @@ export function toSysPath(furi: string, windowsLongPath: boolean = false): strin
  * @param furi File URI to convert.
  * @return Windows short path.
  */
-export function toWindowsShortPath(furi: string): string {
-  const urlObj: url.URL = new url.URL(furi);
+export function toWindowsShortPath(furi: UrlLike): string {
+  const urlObj: url.URL = asFuri(furi);
   if (urlObj.host === "") {
     // Local drive path
     const pathname: string = urlObj.pathname.substring(1);
@@ -319,7 +335,7 @@ export function toWindowsShortPath(furi: string): string {
     return toBackwardSlashes(forward);
   } else {
     // Server path
-    const pathname: string = new url.URL(furi).pathname;
+    const pathname: string = urlObj.pathname;
     const forward: string = pathname.split("/").map(decodeURIComponent).join("/");
     const backward: string = toBackwardSlashes(forward);
     return `\\\\${urlObj.host}${backward}`;
@@ -342,8 +358,8 @@ export function toWindowsShortPath(furi: string): string {
  * @param furi File URI to convert.
  * @return Windows long path.
  */
-export function toWindowsLongPath(furi: string): string {
-  const urlObj: url.URL = new url.URL(furi);
+export function toWindowsLongPath(furi: UrlLike): string {
+  const urlObj: Furi = asFuri(furi);
   if (urlObj.host === "") {
     // Local drive path
     const pathname: string = urlObj.pathname.substring(1);
@@ -352,7 +368,7 @@ export function toWindowsLongPath(furi: string): string {
     return `\\\\?\\${backward}`;
   } else {
     // Server path
-    const pathname: string = new url.URL(furi).pathname;
+    const pathname: string = urlObj.pathname;
     const forward: string = pathname.split("/").map(decodeURIComponent).join("/");
     const backward: string = toBackwardSlashes(forward);
     return `\\\\?\\unc\\${urlObj.host}${backward}`;
@@ -373,8 +389,8 @@ export function toWindowsLongPath(furi: string): string {
  * @param furi File URI to convert.
  * @return Posix path.
  */
-export function toPosixPath(furi: string): string {
-  const urlObj: url.URL = new url.URL(furi);
+export function toPosixPath(furi: UrlLike): string {
+  const urlObj: Furi = asFuri(furi);
   if (urlObj.host !== "" && urlObj.host !== "localhost") {
     assert.fail(`Expected \`host\` to be "" or "localhost": ${furi}`);
   }

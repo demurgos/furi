@@ -1,5 +1,5 @@
 import chai from "chai";
-import { fromWindowsPath, toWindowsLongPath, toWindowsShortPath } from "../lib";
+import { fromWindowsPath, Furi, toWindowsLongPath, toWindowsShortPath } from "../lib";
 
 interface TestItem {
   name?: string;
@@ -174,6 +174,11 @@ describe("toWindowsShortPath", function () {
       const actual: string = toWindowsShortPath(item.furi);
       chai.assert.strictEqual(actual, expected);
     });
+    it(`${title} (Furi)`, () => {
+      const expected: string = item.shortWindowsPath;
+      const actual: string = new Furi(item.furi).toWindowsShortPath();
+      chai.assert.strictEqual(actual, expected);
+    });
   }
 });
 
@@ -183,6 +188,11 @@ describe("toWindowsLongPath", function () {
     it(title, () => {
       const expected: string = item.longWindowsPath;
       const actual: string = toWindowsLongPath(item.furi);
+      chai.assert.strictEqual(actual, expected);
+    });
+    it(`${title} (Furi)`, () => {
+      const expected: string = item.longWindowsPath;
+      const actual: string = new Furi(item.furi).toWindowsLongPath();
       chai.assert.strictEqual(actual, expected);
     });
   }

@@ -1,5 +1,5 @@
 import chai from "chai";
-import { fromPosixPath, toPosixPath } from "../lib";
+import { fromPosixPath, Furi, toPosixPath } from "../lib";
 
 interface TestItem {
   name?: string;
@@ -139,6 +139,10 @@ describe("toPosixPath", function () {
       const title: string = item.name !== undefined ? `${item.name}: ${input}` : input;
       it(title, () => {
         const actual: string = toPosixPath(input);
+        chai.assert.strictEqual(actual, expected);
+      });
+      it(`${title} (Furi)`, () => {
+        const actual: string = new Furi(input).toPosixPath();
         chai.assert.strictEqual(actual, expected);
       });
     }
