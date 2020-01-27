@@ -1,4 +1,4 @@
-# Next
+# 2.0.0 (2020-01-27)
 
 - **[Breaking change]** Remove repeated slashes from pathnames.
 - **[Feature]** Add `Furi` class enforcing file URI invariants.
