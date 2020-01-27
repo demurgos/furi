@@ -37,22 +37,22 @@
     "is-windows": "^1.0.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.6",
+    "@types/chai": "^4.2.7",
     "@types/gulp": "^4.0.6",
     "@types/minimist": "^1.2.0",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.12.14",
+    "@types/node": "^13.5.0",
     "@types/tmp": "^0.1.0",
     "chai": "^4.2.0",
-    "codecov": "^3.6.1",
+    "codecov": "^3.6.2",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.2.0",
     "minimist": "^1.2.0",
     "pre-commit": "^1.2.2",
     "tmp": "^0.1.0",
-    "ts-node": "^8.5.4",
-    "turbo-gulp": "^0.20.2",
-    "typescript": "^3.7.3"
+    "ts-node": "^8.6.2",
+    "turbo-gulp": "^0.21.1",
+    "typescript": "^3.7.5"
   },
   "c88": {
     "match": [
