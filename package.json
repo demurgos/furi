@@ -44,7 +44,7 @@
     "@types/node": "^13.5.0",
     "@types/tmp": "^0.1.0",
     "chai": "^4.2.0",
-    "codecov": "^3.6.2",
+    "codecov": "^3.6.5",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.2.0",
     "minimist": "^1.2.0",
