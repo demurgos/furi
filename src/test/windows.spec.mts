@@ -1,5 +1,5 @@
-import chai from "chai";
-import { fromWindowsPath, Furi, toWindowsLongPath, toWindowsShortPath } from "../lib";
+import { assert } from "chai";
+import { fromWindowsPath, Furi, toWindowsLongPath, toWindowsShortPath } from "../lib/index.mjs";
 
 interface TestItem {
   name?: string;
@@ -166,39 +166,39 @@ const testItems: TestItem[] = [
   },
 ];
 
-describe("toWindowsShortPath", function () {
+describe("toWindowsShortPath", function() {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.furi}` : item.furi;
     it(title, () => {
       const expected: string = item.shortWindowsPath;
       const actual: string = toWindowsShortPath(item.furi);
-      chai.assert.strictEqual(actual, expected);
+      assert.strictEqual(actual, expected);
     });
     it(`${title} (Furi)`, () => {
       const expected: string = item.shortWindowsPath;
       const actual: string = new Furi(item.furi).toWindowsShortPath();
-      chai.assert.strictEqual(actual, expected);
+      assert.strictEqual(actual, expected);
     });
   }
 });
 
-describe("toWindowsLongPath", function () {
+describe("toWindowsLongPath", function() {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.furi}` : item.furi;
     it(title, () => {
       const expected: string = item.longWindowsPath;
       const actual: string = toWindowsLongPath(item.furi);
-      chai.assert.strictEqual(actual, expected);
+      assert.strictEqual(actual, expected);
     });
     it(`${title} (Furi)`, () => {
       const expected: string = item.longWindowsPath;
       const actual: string = new Furi(item.furi).toWindowsLongPath();
-      chai.assert.strictEqual(actual, expected);
+      assert.strictEqual(actual, expected);
     });
   }
 });
 
-describe("fromWindowsPath", function () {
+describe("fromWindowsPath", function() {
   for (const item of testItems) {
     const expected: string = item.furi;
     const inputs: string[] = [item.shortWindowsPath, item.longWindowsPath, ...item.otherPaths];
@@ -206,7 +206,7 @@ describe("fromWindowsPath", function () {
       const title: string = item.name !== undefined ? `${item.name}: ${input}` : input;
       it(title, () => {
         const actual: string = fromWindowsPath(input).href;
-        chai.assert.strictEqual(actual, expected);
+        assert.strictEqual(actual, expected);
       });
     }
   }

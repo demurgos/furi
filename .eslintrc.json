@@ -1,0 +1,32 @@
+{
+  "env": {
+    "es2020": true
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
+  "globals": {},
+  "rules": {
+    "block-scoped-var": "error",
+    "curly": [
+      "error",
+      "all"
+    ],
+    "eqeqeq": "error",
+    "no-duplicate-imports": "error",
+    "no-eval": "error",
+    "no-label-var": "error",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
+    "no-var": "error",
+    "unicode-bom": [
+      "error",
+      "never"
+    ]
+  }
+}

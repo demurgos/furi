@@ -5,14 +5,13 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
-    "charset": "utf8",
     "checkJs": false,
-    "declaration": false,
+    "declaration": true,
     "disableSizeLimit": false,
     "downlevelIteration": false,
     "emitBOM": false,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": false,
@@ -20,12 +19,10 @@
     "inlineSources": false,
     "isolatedModules": false,
     "lib": [
-      "es2017",
-      "esnext.asynciterable"
+      "es2020"
     ],
-    "locale": "en-us",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "node16",
+    "moduleResolution": "node16",
     "newLine": "lf",
     "noEmit": false,
     "noEmitHelpers": false,
@@ -37,11 +34,11 @@
     "noImplicitThis": true,
     "noStrictGenericChecks": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": false,
+    "noUnusedParameters": true,
     "noImplicitUseStrict": false,
     "noLib": false,
     "noResolve": false,
-    "preserveConstEnums": false,
+    "preserveConstEnums": true,
     "removeComments": false,
     "skipLibCheck": true,
     "sourceMap": true,
@@ -49,7 +46,8 @@
     "strictNullChecks": true,
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false,
-    "target": "es2017",
-    "traceResolution": false
+    "target": "es2020",
+    "traceResolution": false,
+    "rootDir": "."
   }
 }

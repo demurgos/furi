@@ -1,5 +1,5 @@
-import chai from "chai";
-import { fromPosixPath, Furi, toPosixPath } from "../lib";
+import { assert } from "chai";
+import { fromPosixPath, Furi, toPosixPath } from "../lib/index.mjs";
 
 interface TestItem {
   name?: string;
@@ -131,7 +131,7 @@ const testItems: TestItem[] = [
   },
 ];
 
-describe("toPosixPath", function () {
+describe("toPosixPath", function() {
   for (const item of testItems) {
     const expected: string = item.posixPath;
     const inputs: string[] = [item.furi, ...item.otherFuris];
@@ -139,23 +139,23 @@ describe("toPosixPath", function () {
       const title: string = item.name !== undefined ? `${item.name}: ${input}` : input;
       it(title, () => {
         const actual: string = toPosixPath(input);
-        chai.assert.strictEqual(actual, expected);
+        assert.strictEqual(actual, expected);
       });
       it(`${title} (Furi)`, () => {
         const actual: string = new Furi(input).toPosixPath();
-        chai.assert.strictEqual(actual, expected);
+        assert.strictEqual(actual, expected);
       });
     }
   }
 });
 
-describe("fromPosixPath", function () {
+describe("fromPosixPath", function() {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.posixPath}` : item.posixPath;
     it(title, () => {
       const expected: string = item.furi;
       const actual: string = fromPosixPath(item.posixPath).href;
-      chai.assert.strictEqual(actual, expected);
+      assert.strictEqual(actual, expected);
     });
   }
 });

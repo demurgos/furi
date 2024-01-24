@@ -2,10 +2,6 @@
  * @module furi
  */
 
-import assert from "assert";
-import isWindows from "is-windows";
-import url from "url";
-
 class InvalidFileUri extends TypeError {
   public input: string;
   public code: string;
@@ -40,7 +36,7 @@ class InvalidFileUri extends TypeError {
  *   already). This implies that `host` only contains `hostname`.
  * - The `search` and `hash` properties can have any value.
  */
-export class Furi extends url.URL {
+export class Furi extends URL {
   constructor(input: UrlLike) {
     const strInput: string = `${input}`;
     super(strInput);
@@ -52,7 +48,9 @@ export class Furi extends url.URL {
     }
   }
 
+  // @ts-ignore
   get protocol(): string {
+    // @ts-ignore
     return super.protocol;
   }
 
@@ -60,10 +58,13 @@ export class Furi extends url.URL {
     if (value !== "file:") {
       return;
     }
+    // @ts-ignore
     super.protocol = value;
   }
 
+  // @ts-ignore
   get pathname(): string {
+    // @ts-ignore
     return super.pathname;
   }
 
@@ -71,6 +72,7 @@ export class Furi extends url.URL {
     if (value.indexOf("//") >= 0) {
       value = value.replace(/\/+/g, "/");
     }
+    // @ts-ignore
     super.pathname = value;
   }
 
@@ -111,7 +113,7 @@ export class Furi extends url.URL {
 /**
  * A `URL` instance or valid _absolute_ URL string.
  */
-export type UrlLike = url.URL | string;
+export type UrlLike = URL | string;
 
 /**
  * Normalizes the input to a `Furi` instance.
@@ -120,7 +122,7 @@ export type UrlLike = url.URL | string;
  * @returns `Furi` instance. It is always a new instance.
  */
 export function asFuri(input: UrlLike): Furi {
-  if (input instanceof url.URL) {
+  if (input instanceof URL) {
     return new Furi(input.toString());
   } else {
     return new Furi(input);
@@ -132,8 +134,8 @@ export function asFuri(input: UrlLike): Furi {
  *
  * @param input URL string or instance to normalize.
  */
-export function asWritableUrl(input: UrlLike): url.URL {
-  return new url.URL(typeof input === "string" ? input : input.toString());
+export function asWritableUrl(input: UrlLike): URL {
+  return new URL(typeof input === "string" ? input : input.toString());
 }
 
 /**
@@ -244,14 +246,14 @@ export function relative(from: UrlLike, to: UrlLike): string {
  * @returns URI-encoded basename.
  */
 export function basename(furi: UrlLike, ext?: string): string {
-  const readable: url.URL = asFuri(furi);
+  const readable: URL = asFuri(furi);
   const components: readonly string[] = readable.pathname
     .split("/")
     .filter(c => c !== "");
   const basename: string = components.length > 0 ? components[components.length - 1] : "";
   if (ext !== undefined && ext.length > 0 && ext.length < basename.length) {
     if (basename.endsWith(ext)) {
-      return basename.substr(0, basename.length - ext.length);
+      return basename.substring(0, basename.length - ext.length);
     }
   }
   return basename;
@@ -266,8 +268,8 @@ export function basename(furi: UrlLike, ext?: string): string {
  * @param input Input URL.
  * @returns Parent URL.
  */
-export function parent(input: UrlLike): url.URL {
-  const writable: url.URL = asWritableUrl(input);
+export function parent(input: UrlLike): URL {
+  const writable: URL = asWritableUrl(input);
   const oldPathname: string = writable.pathname;
   const components: string[] = oldPathname.split("/");
   if (components[components.length - 1] === "") {
@@ -277,6 +279,25 @@ export function parent(input: UrlLike): url.URL {
   components.pop();
   writable.pathname = components.join("/");
   return writable;
+}
+
+/**
+ * Detect if the current platform uses Windows-style paths.
+ *
+ * This used automatically in functions prefixed by `sys` to get system-dependent behavior.
+ */
+export function isWindows(): boolean {
+  if (!globalThis?.process) {
+    return false;
+  }
+  if (globalThis?.process?.platform === "win32" || globalThis?.process?.platform === "cygwin") {
+    return true;
+  }
+  const osType = globalThis?.process?.env["OSTYPE"];
+  if (!(typeof osType === "string")) {
+    return false;
+  }
+  return /^(msys|cygwin)$/.test(osType);
 }
 
 /**
@@ -327,7 +348,7 @@ export function toSysPath(furi: UrlLike, windowsLongPath: boolean = false): stri
  * @return Windows short path.
  */
 export function toWindowsShortPath(furi: UrlLike): string {
-  const urlObj: url.URL = asFuri(furi);
+  const urlObj: URL = asFuri(furi);
   if (urlObj.host === "") {
     // Local drive path
     const pathname: string = urlObj.pathname.substring(1);
@@ -392,7 +413,7 @@ export function toWindowsLongPath(furi: UrlLike): string {
 export function toPosixPath(furi: UrlLike): string {
   const urlObj: Furi = asFuri(furi);
   if (urlObj.host !== "" && urlObj.host !== "localhost") {
-    assert.fail(`Expected \`host\` to be "" or "localhost": ${furi}`);
+    throw new Error(`furi: expected \`host\` to be "" or "localhost": ${furi}`);
   }
   const pathname: string = urlObj.pathname;
   return pathname.split("/").map(decodeURIComponent).join("/");
@@ -418,7 +439,7 @@ export function toPosixPath(furi: UrlLike): string {
  * @param absPath Absolute system-dependent path to convert
  * @return Frozen `file://` URL object.
  */
-export function fromSysPath(absPath: string): url.URL {
+export function fromSysPath(absPath: string): URL {
   return isWindows() ? fromWindowsPath(absPath) : fromPosixPath(absPath);
 }
 
@@ -439,7 +460,7 @@ const WINDOWS_UNC_REGEX: RegExp = /^unc(?:$|[\\/]+)([^\\/]+)(?:$|[\\/]+)/i;
  * @param absPath Absolute Windows path to convert
  * @return Frozen `file://` URL object.
  */
-export function fromWindowsPath(absPath: string): url.URL {
+export function fromWindowsPath(absPath: string): URL {
   const prefixMatch: RegExpExecArray | null = WINDOWS_PREFIX_REGEX.exec(absPath);
   if (prefixMatch === null) {
     // Short device path
@@ -449,7 +470,7 @@ export function fromWindowsPath(absPath: string): url.URL {
   const tail: string = absPath.substring(prefixMatch[0].length);
   if (prefix !== "?") {
     // Short server path
-    const result: url.URL = new url.URL("file:///");
+    const result: URL = new URL("file:///");
     result.host = prefix;
     result.pathname = encodeURI(`/${toForwardSlashes(tail)}`);
     return result;
@@ -463,7 +484,7 @@ export function fromWindowsPath(absPath: string): url.URL {
     // Long server path
     const host: string = uncMatch[1];
     const serverPath: string = tail.substring(uncMatch[0].length);
-    const result: url.URL = new url.URL("file:///");
+    const result: URL = new URL("file:///");
     result.host = host;
     result.pathname = encodeURI(`/${toForwardSlashes(serverPath)}`);
     return result;
@@ -482,7 +503,7 @@ export function fromWindowsPath(absPath: string): url.URL {
  * @param absPath Absolute Posix path to convert
  * @return Frozen `file://` URL object.
  */
-export function fromPosixPath(absPath: string): url.URL {
+export function fromPosixPath(absPath: string): URL {
   return formatFileUrl(absPath);
 }
 
@@ -513,8 +534,8 @@ function toBackwardSlashes(str: string): string {
  * @return Frozen `file://` URL object.
  * @internal
  */
-function formatFileUrl(pathname: string): url.URL {
-  const result: url.URL = new url.URL("file:///");
+function formatFileUrl(pathname: string): URL {
+  const result: URL = new URL("file:///");
   result.pathname = encodeURI(pathname);
   return result;
 }
