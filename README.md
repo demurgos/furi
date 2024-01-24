@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/furi.svg?maxAge=2592000)](https://www.npmjs.com/package/furi)
 [![GitHub repository](https://img.shields.io/badge/Github-demurgos%2Ffuri-blue.svg)](https://github.com/demurgos/furi)
-[![Build status](https://img.shields.io/travis/com/demurgos/furi/master.svg?maxAge=2592000)](https://travis-ci.com/demurgos/furi)
 [![Codecov](https://codecov.io/gh/demurgos/furi/branch/master/graph/badge.svg)](https://codecov.io/gh/demurgos/furi)
 
 File URI manipulation library.
@@ -13,9 +12,14 @@ focuses on conversion between file URIs and system dependent paths.
 The conversion supports Windows UNC paths, Windows long paths, trailing
 separators, special characters and non-ASCII characters.
 
+This library has no dependencies and is compatible with browsers.
+
 ## Installation
 
 ```shell
+# Yarn
+yarn add furi
+# npm
 npm install --save furi
 ```
 

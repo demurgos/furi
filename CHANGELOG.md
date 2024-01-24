@@ -1,3 +1,9 @@
+# Next
+
+- **[Breaking change]** Convert to ESM.
+- **[Feature]** Drop all runtime dependencies.
+- **[Fix]** Update dependencies.
+
 # 2.0.0 (2020-01-27)
 
 - **[Breaking change]** Remove repeated slashes from pathnames.

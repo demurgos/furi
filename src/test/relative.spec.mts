@@ -1,6 +1,5 @@
-import chai from "chai";
-import url from "url";
-import { relative } from "../lib";
+import { assert } from "chai";
+import { relative } from "../lib/index.mjs";
 
 interface TestItem {
   readonly name?: string;
@@ -127,22 +126,22 @@ const testItems: TestItem[] = [
   },
 ];
 
-describe("relative", function () {
-  for (const {name, from, to, expected} of testItems) {
+describe("relative", function() {
+  for (const { name, from, to, expected } of testItems) {
     {
       const inputString: string = `(${JSON.stringify(from)}, ${JSON.stringify(to)})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
       it(title, () => {
         const actual: string = relative(from, to);
-        chai.assert.strictEqual(actual, expected);
+        assert.strictEqual(actual, expected);
       });
     }
     {
       const inputString: string = `(new url.URL(${JSON.stringify(from)}), new url.URL(${JSON.stringify(to)}))`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
       it(title, () => {
-        const actual: string = relative(new url.URL(from), new url.URL(to));
-        chai.assert.strictEqual(actual, expected);
+        const actual: string = relative(new URL(from), new URL(to));
+        assert.strictEqual(actual, expected);
       });
     }
   }

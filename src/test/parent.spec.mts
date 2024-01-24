@@ -1,6 +1,5 @@
-import chai from "chai";
-import url from "url";
-import { parent } from "../lib";
+import { assert } from "chai";
+import { parent } from "../lib/index.mjs";
 
 interface TestItem {
   readonly name?: string;
@@ -76,22 +75,22 @@ const testItems: TestItem[] = [
   },
 ];
 
-describe("parent", function () {
-  for (const {name, input, expected} of testItems) {
+describe("parent", function() {
+  for (const { name, input, expected } of testItems) {
     {
       const inputString: string = `(${JSON.stringify(input)})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
       it(title, () => {
-        const actual: url.URL = parent(input);
-        chai.assert.strictEqual(actual.toString(), expected);
+        const actual: URL = parent(input);
+        assert.strictEqual(actual.toString(), expected);
       });
     }
     {
       const inputString: string = `(new url.URL(${JSON.stringify(input)})})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
       it(title, () => {
-        const actual: url.URL = parent(new url.URL(input));
-        chai.assert.strictEqual(actual.toString(), expected);
+        const actual: URL = parent(new URL(input));
+        assert.strictEqual(actual.toString(), expected);
       });
     }
   }

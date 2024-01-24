@@ -1,6 +1,5 @@
-import chai from "chai";
-import url from "url";
-import { join } from "../lib";
+import { assert } from "chai";
+import { join } from "../lib/index.mjs";
 
 interface TestItem {
   readonly name?: string;
@@ -368,23 +367,23 @@ const testItems: TestItem[] = [
   },
 ];
 
-describe("join", function () {
-  for (const {name, base, paths, expected} of testItems) {
+describe("join", function() {
+  for (const { name, base, paths, expected } of testItems) {
     const pathsStr: string = `...${JSON.stringify(paths)}`;
     {
       const inputString: string = `(${JSON.stringify(base)}, ${pathsStr})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
       it(title, () => {
-        const actual: url.URL = join(base, ...paths);
-        chai.assert.strictEqual(actual.toString(), expected);
+        const actual: URL = join(base, ...paths);
+        assert.strictEqual(actual.toString(), expected);
       });
     }
     {
       const inputString: string = `(new url.URL(${JSON.stringify(base)}), ${pathsStr})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
       it(title, () => {
-        const actual: url.URL = join(new url.URL(base), ...paths);
-        chai.assert.strictEqual(actual.toString(), expected);
+        const actual: URL = join(new URL(base), ...paths);
+        assert.strictEqual(actual.toString(), expected);
       });
     }
   }
