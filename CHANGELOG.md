@@ -1,8 +1,9 @@
-# Next
+# 3.0.0 (2024-01-24)
 
 - **[Breaking change]** Convert to ESM.
 - **[Feature]** Drop all runtime dependencies.
 - **[Fix]** Update dependencies.
+- **[Internal]** Replace Travis CI with GitHub Actions.
 
 # 2.0.0 (2020-01-27)
 
