@@ -1,4 +1,5 @@
-import { assert } from "chai";
+import * as assert from "node:assert/strict";
+import {describe, test} from "node:test";
 import { parent } from "../lib/index.mjs";
 
 interface TestItem {
@@ -80,7 +81,7 @@ describe("parent", function() {
     {
       const inputString: string = `(${JSON.stringify(input)})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
-      it(title, () => {
+      test(title, () => {
         const actual: URL = parent(input);
         assert.strictEqual(actual.toString(), expected);
       });
@@ -88,7 +89,7 @@ describe("parent", function() {
     {
       const inputString: string = `(new url.URL(${JSON.stringify(input)})})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
-      it(title, () => {
+      test(title, () => {
         const actual: URL = parent(new URL(input));
         assert.strictEqual(actual.toString(), expected);
       });

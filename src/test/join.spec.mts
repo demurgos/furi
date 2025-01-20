@@ -1,4 +1,5 @@
-import { assert } from "chai";
+import * as assert from "node:assert/strict";
+import {describe, test} from "node:test";
 import { join } from "../lib/index.mjs";
 
 interface TestItem {
@@ -373,7 +374,7 @@ describe("join", function() {
     {
       const inputString: string = `(${JSON.stringify(base)}, ${pathsStr})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
-      it(title, () => {
+      test(title, () => {
         const actual: URL = join(base, ...paths);
         assert.strictEqual(actual.toString(), expected);
       });
@@ -381,7 +382,7 @@ describe("join", function() {
     {
       const inputString: string = `(new url.URL(${JSON.stringify(base)}), ${pathsStr})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
-      it(title, () => {
+      test(title, () => {
         const actual: URL = join(new URL(base), ...paths);
         assert.strictEqual(actual.toString(), expected);
       });

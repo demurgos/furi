@@ -10,10 +10,11 @@
     "lint": "eslint \"./src/**/*.mts\"",
     "format": "dprint fmt",
     "format:check": "dprint check",
+    "dprint:update": "dprint config update",
     "build": "tsc --build src/lib/tsconfig.json",
     "prepack": "yarn run build",
     "test:build": "tsc --build src/test/tsconfig.json",
-    "test": "yarn run test:build && mocha \"test/**/*.spec.mjs\""
+    "test": "yarn run test:build && node --test \"test/**/*.spec.mjs\""
   },
   "engines": {
     "node": ">=14.13.1"
@@ -25,16 +26,9 @@
   "author": "Charles Samborski <demurgos@demurgos.net> (https://demurgos.net/)",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^4.3.11",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^20.11.6",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
-    "@typescript-eslint/parser": "^6.19.1",
-    "chai": "^5.0.0",
-    "dprint": "^0.45.0",
-    "eslint": "^8.56.0",
-    "mocha": "^10.2.0",
-    "typescript": "^5.3.3"
+    "@types/node": "^22.10.7",
+    "dprint": "^0.48.0",
+    "typescript": "^5.7.3"
   },
   "type": "module",
   "exports": {
@@ -45,5 +39,5 @@
     "./lib/**/*.(mjs|map|mts)",
     "./src/lib/"
   ],
-  "packageManager": "yarn@4.0.2"
+  "packageManager": "yarn@4.6.0"
 }

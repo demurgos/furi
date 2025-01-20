@@ -1,4 +1,5 @@
-import { assert } from "chai";
+import * as assert from "node:assert/strict";
+import {describe, test} from "node:test";
 import cp from "node:child_process";
 import fs from "node:fs/promises";
 import sysPath from "node:path";
@@ -33,7 +34,7 @@ const testItems: TestItem[] = [
 describe("modules", () => {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.basename}` : item.basename;
-    it(title, async () => {
+    test(title, async () => {
       const { furi, sysPath } = await resolveTestItem(item.basename);
       const errMessage: string = JSON.stringify({ furi, sysPath });
       assert.strictEqual(fromSysPath(sysPath).href, furi, `fromSysPath: ${errMessage}`);

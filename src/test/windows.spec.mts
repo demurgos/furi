@@ -1,4 +1,5 @@
-import { assert } from "chai";
+import * as assert from "node:assert/strict";
+import {describe, test} from "node:test";
 import { fromWindowsPath, Furi, toWindowsLongPath, toWindowsShortPath } from "../lib/index.mjs";
 
 interface TestItem {
@@ -169,12 +170,12 @@ const testItems: TestItem[] = [
 describe("toWindowsShortPath", function() {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.furi}` : item.furi;
-    it(title, () => {
+    test(title, () => {
       const expected: string = item.shortWindowsPath;
       const actual: string = toWindowsShortPath(item.furi);
       assert.strictEqual(actual, expected);
     });
-    it(`${title} (Furi)`, () => {
+    test(`${title} (Furi)`, () => {
       const expected: string = item.shortWindowsPath;
       const actual: string = new Furi(item.furi).toWindowsShortPath();
       assert.strictEqual(actual, expected);
@@ -185,12 +186,12 @@ describe("toWindowsShortPath", function() {
 describe("toWindowsLongPath", function() {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.furi}` : item.furi;
-    it(title, () => {
+    test(title, () => {
       const expected: string = item.longWindowsPath;
       const actual: string = toWindowsLongPath(item.furi);
       assert.strictEqual(actual, expected);
     });
-    it(`${title} (Furi)`, () => {
+    test(`${title} (Furi)`, () => {
       const expected: string = item.longWindowsPath;
       const actual: string = new Furi(item.furi).toWindowsLongPath();
       assert.strictEqual(actual, expected);
@@ -204,7 +205,7 @@ describe("fromWindowsPath", function() {
     const inputs: string[] = [item.shortWindowsPath, item.longWindowsPath, ...item.otherPaths];
     for (const input of inputs) {
       const title: string = item.name !== undefined ? `${item.name}: ${input}` : input;
-      it(title, () => {
+      test(title, () => {
         const actual: string = fromWindowsPath(input).href;
         assert.strictEqual(actual, expected);
       });

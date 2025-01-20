@@ -1,4 +1,5 @@
-import { assert } from "chai";
+import * as assert from "node:assert/strict";
+import {describe, test} from "node:test";
 import { relative } from "../lib/index.mjs";
 
 interface TestItem {
@@ -131,7 +132,7 @@ describe("relative", function() {
     {
       const inputString: string = `(${JSON.stringify(from)}, ${JSON.stringify(to)})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
-      it(title, () => {
+      test(title, () => {
         const actual: string = relative(from, to);
         assert.strictEqual(actual, expected);
       });
@@ -139,7 +140,7 @@ describe("relative", function() {
     {
       const inputString: string = `(new url.URL(${JSON.stringify(from)}), new url.URL(${JSON.stringify(to)}))`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
-      it(title, () => {
+      test(title, () => {
         const actual: string = relative(new URL(from), new URL(to));
         assert.strictEqual(actual, expected);
       });

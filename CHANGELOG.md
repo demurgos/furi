@@ -1,3 +1,7 @@
+# Next
+
+- **[Internal]** Update dev dependencies. Switch builtin Node test framework.
+
 # 3.0.0 (2024-01-24)
 
 - **[Breaking change]** Convert to ESM.

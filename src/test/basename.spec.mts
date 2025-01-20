@@ -1,5 +1,6 @@
-import { assert } from "chai";
-import { basename } from "../lib/index.mjs";
+import * as assert from "node:assert/strict";
+import {describe, test} from "node:test";
+import {basename} from "../lib/index.mjs";
 
 interface TestItem {
   readonly name?: string;
@@ -83,12 +84,12 @@ const testItems: TestItem[] = [
   // assert.strictEqual(path.basename('a', 'a'), '');
 ];
 
-describe("basename", function() {
-  for (const { name, furi, ext, expected } of testItems) {
+describe("basename", function () {
+  for (const {name, furi, ext, expected} of testItems) {
     {
       const inputString: string = `(${JSON.stringify(furi)}, ${ext !== undefined ? JSON.stringify(ext) : "undefined"})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
-      it(title, () => {
+      test(title, () => {
         const actual: string = basename(furi, ext);
         assert.strictEqual(actual, expected);
       });
@@ -98,7 +99,7 @@ describe("basename", function() {
         ext !== undefined ? JSON.stringify(ext) : "undefined"
       }})`;
       const title: string = name !== undefined ? `${name}: ${inputString}` : inputString;
-      it(title, () => {
+      test(title, () => {
         const actual: string = basename(new URL(furi), ext);
         assert.strictEqual(actual, expected);
       });

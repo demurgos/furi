@@ -1,4 +1,5 @@
-import { assert } from "chai";
+import * as assert from "node:assert/strict";
+import {describe, test} from "node:test";
 import { fromPosixPath, Furi, toPosixPath } from "../lib/index.mjs";
 
 interface TestItem {
@@ -137,11 +138,11 @@ describe("toPosixPath", function() {
     const inputs: string[] = [item.furi, ...item.otherFuris];
     for (const input of inputs) {
       const title: string = item.name !== undefined ? `${item.name}: ${input}` : input;
-      it(title, () => {
+      test(title, () => {
         const actual: string = toPosixPath(input);
         assert.strictEqual(actual, expected);
       });
-      it(`${title} (Furi)`, () => {
+      test(`${title} (Furi)`, () => {
         const actual: string = new Furi(input).toPosixPath();
         assert.strictEqual(actual, expected);
       });
@@ -152,7 +153,7 @@ describe("toPosixPath", function() {
 describe("fromPosixPath", function() {
   for (const item of testItems) {
     const title: string = item.name !== undefined ? `${item.name}: ${item.posixPath}` : item.posixPath;
-    it(title, () => {
+    test(title, () => {
       const expected: string = item.furi;
       const actual: string = fromPosixPath(item.posixPath).href;
       assert.strictEqual(actual, expected);
