@@ -12,8 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        # Support policy: LTS + latest. Older versions are a best-effort basis.
-        node-version: ["18.12.0", "20.9.0", "latest"]
+        # Support policy: latest and all LTS after Node 22. Older versions are a best-effort basis.
+        node-version: ["22.13.0", "latest"]
 
     steps:
       - uses: actions/checkout@v4.1.1
